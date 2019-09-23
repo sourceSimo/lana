@@ -4,7 +4,7 @@
 
 # <p align="center"> كود تنصيب السورس 🖇
 
-# git clone https://github.com/MAXTELE/MAX.git ;cd MAX;chmod +x ins;./ins
+`git clone https://github.com/MAXTELE/MAX.git ;cd MAX;chmod +x ins;./ins`
 
 # <p align="center"> بعد انتهاء عمليه تثبيت السورس 🚸
 
