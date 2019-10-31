@@ -1355,11 +1355,11 @@ end,nil)
 return false
 end
 
-if MsgText[1] == 'مسح' and MsgText[2] == 'مجوهراتي'  then
+if MsgText[1] == 'مسح' and MsgText[2] == 'نقاطي'  then
 local points = redis:get(max..':User_Points:'..msg.chat_id_..msg.sender_user_id_) or 0
-if nko == 0 then  return "⚠️*│*عذرا ليس لديك مجوهرات لكي يتم مسحها" end
+if nko == 0 then  return "⚠️*│*عذرا ليس لديك نقاط لكي يتم مسحها" end
 redis:del(max..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
-return "♦️*│*تم مسح {* "..points.." *} من مجوهراتك\n✓"
+return "♦️*│*تم مسح {* "..points.." *} من نقاطك\n✓"
 end
 
 if MsgText[1] == 'معلوماتي' or MsgText[1] == 'موقعي' then
@@ -2235,8 +2235,8 @@ local text = [[
 📞│جهاتي «» لمعرفه عدد جهاتك
 🕹│الالعاب «» لعرض العاب البوت
 😍│بحث + اسم الاغنيه «» لبحث انواع الاغاني
-💎│مجوهراتي «» لمعرفه عدد مجوهراتك
-💎│بيع مجوهراتي -:- العدد «» لبيع مجوهراتك لتحصل على رسائل
+🧮│نقاطي «» لمعرفه عدد نقاطك
+🧮│بيع نقاطي + العدد «» لبيع نقاطك لتحصل على رسائل
 💳│معلوماتي «» لعرض معلوماتك
 📟│السورس «» لعرض سورس البوت
 🎖│الرتبه بالرد «» لمعرفه رتبه الشخص
@@ -2934,7 +2934,7 @@ end
 
 if msg.text and msg.type == "channel" then
 if msg.text:match("^"..Bot_Name.." غادر$") and (msg.SudoBase or msg.SudoBase or msg.Director) then
-sendMsg(msg.chat_id_,msg.id_,'🚦│تفو عليكم حغادر باي 💔🚶‍♂')
+sendMsg(msg.chat_id_,msg.id_,'🚦│تفو عليكم حغادر باي ??🚶‍♂')
 rem_data_group(msg.chat_id_)
 StatusLeft(msg.chat_id_,our_id)
 return false
@@ -4106,7 +4106,7 @@ end
 local Save_Data = io.open("./inc/"..Bot_User..".json","w+")
 Save_Data:write(json_data..'}}')
 Save_Data:close()
-sendDocument(SUDO_ID,0,"./inc/"..Bot_User..".json","🚸| عزيزي اليك ملف النسخه..\n🚸| انا اقول بأرساله كل 24 ساعه تلقائي\n🔖| المجموعات » { "..#All_Groups_ID.." }\n📋| للبوت » "..Bot_User.."\n📆| التاريخ » "..os.date("%Y/%m/%d").."\n",dl_cb,nil)
+sendDocument(SUDO_ID,0,"./inc/"..Bot_User..".json","🚸| ملف النسخه الاحتياطيه ...\n🔖| المجموعات » { "..#All_Groups_ID.." }\n📋| للبوت » "..Bot_User.."\n📆| التاريخ » "..os.date("%Y/%m/%d").."\n",dl_cb,nil)
 end
 if redis:get(max..'CheckExpire::'..msg.chat_id_) then
 local ExpireDate = redis:ttl(max..'ExpireDate:'..msg.chat_id_)
