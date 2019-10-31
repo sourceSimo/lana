@@ -1939,8 +1939,8 @@ end
 if (MsgText[1]== "ايدي" or MsgText[1]=="ايديي🆔") and msg.type == "pv" then return  "\n👨🏻‍💻│اهلن عزيزي المطور ايديك هوه ⏬\n\n🧟‍♂│"..msg.sender_user_id_.."\n"  end
 
 if MsgText[1]== "قناة السورس 📡" and msg.type == "pv" then
-local inline = {{{text="⚜│قنآهہ‏‏ آلسـورس ضـغـط هـنـآ ",url="t.me/hlh_313"}}}
-send_key(msg.sender_user_id_,'  [⚜│قناة سورس : مـاكـس](t.me/hlh_313)',nil,inline,msg.id_)
+local inline = {{{text="⚜│قنآهہ‏‏ آلسـورس ضـغـط هـنـآ ",url="t.me/@uop70"}}}
+send_key(msg.sender_user_id_,'  [⚜│قناة سورس : مـاكـس](t.me/@uop70)',nil,inline,msg.id_)
 return false
 end
 
@@ -2111,7 +2111,7 @@ if msg.type == 'channel' and msg.GroupActive then
 if MsgText[1] == "الاوامر" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
 return [[
-‏‎‏┄─┅══┅─┄
+‏‎‏‌‌‏‌‌‌‌‏                                     ‌‌‏┄─┅══┅─┄
 👨‍💻↫‌‌‏مـسـآرت آلآوآمـر آلعآمـهہ‌‏ ⇊
 ┄─┅═ـ═┅─┄
 👨‍⚖️╿م1 » آوآمـر آلآدآرهہ‌‏
@@ -2207,6 +2207,7 @@ local text = [[
 📞│قفل «» فتح ❬الجــهـــــات❭
 🌐│قفل «» فتح ❬الانـــلايــن❭
 🔚│قفل «» فتح ❬التوجيــــه❭
+🚫│قفل «» فتح ❬الدخول بالرابط❭
 🏌‍♂╽قفل «» فتح ❬البوتات بالطرد❭
 ┄─┅═ـ═┅─┄     
 ²↫❬القفل بالتقييـد❭
@@ -2233,6 +2234,7 @@ local text = [[
 🔗│الرابط «» لستخراج رابط المجموعه
 📞│جهاتي «» لمعرفه عدد جهاتك
 🕹│الالعاب «» لعرض العاب البوت
+😍│بحث + اسم الاغنيه «» لبحث انواع الاغاني
 💎│مجوهراتي «» لمعرفه عدد مجوهراتك
 💎│بيع مجوهراتي -:- العدد «» لبيع مجوهراتك لتحصل على رسائل
 💳│معلوماتي «» لعرض معلوماتك
@@ -4104,7 +4106,7 @@ end
 local Save_Data = io.open("./inc/"..Bot_User..".json","w+")
 Save_Data:write(json_data..'}}')
 Save_Data:close()
-sendDocument(SUDO_ID,0,"./inc/"..Bot_User..".json","🚸| ملف النسخه الاحتياطيه ...\n🔖| المجموعات » { "..#All_Groups_ID.." }\n📋| للبوت » "..Bot_User.."\n📆| التاريخ » "..os.date("%Y/%m/%d").."\n",dl_cb,nil)
+sendDocument(SUDO_ID,0,"./inc/"..Bot_User..".json","🚸| عزيزي اليك ملف النسخه..\n🚸| انا اقول بأرساله كل 24 ساعه تلقائي\n🔖| المجموعات » { "..#All_Groups_ID.." }\n📋| للبوت » "..Bot_User.."\n📆| التاريخ » "..os.date("%Y/%m/%d").."\n",dl_cb,nil)
 end
 if redis:get(max..'CheckExpire::'..msg.chat_id_) then
 local ExpireDate = redis:ttl(max..'ExpireDate:'..msg.chat_id_)
