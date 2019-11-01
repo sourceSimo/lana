@@ -5,7 +5,7 @@
 ──▀████████▀──┊@auuuvu
 ─────▀██▀─────
 ┊ＭᎯẊ ‿ @uop70
-تم تطوير وبرمجه السورس من قبل كارا ┊
+تم تطوير وبرمجة السورس من قبل كارا ┊
 ┊@auuuvu ‿ @uop70 
 #-------------------------------------------------------------------
 ]]
@@ -91,7 +91,7 @@ end
 GetUser.result.username = GetUser.result.username or GetUser.result.first_name
 print('\n\27[1;36m￤تم آدخآل آيدي آلمـطـور بنجآح , سـوف يتم تشـغيل آلسـورس آلآن .\n￤Success Save USERID : \27[0;32m['..SUDO_USER..']\n\27[0;39;49m')
 max = Token:match("(%d+)")
-redis:set(max..":VERSION",1)
+redis:set(max..":VERSION",2.9)
 redis:set(max..":SUDO_ID:",SUDO_USER)
 redis:set(max..":DataCenter:",'German')
 redis:set(max..":UserNameBot:",BOT_User)
@@ -256,38 +256,34 @@ elseif redis:sismember(max..':SUDO_BOT:',msg.sender_user_id_) then
 msg.TheRankCmd = 'المطور 👨🏽‍💻'
 msg.TheRank = 'مطور البوت 👨🏽‍💻'
 msg.Rank = 2
-elseif msg.GroupActive and redis:sismember(max..':Hussain:'..msg.chat_id_,msg.sender_user_id_) then 
-msg.TheRankCmd = 'منشى اساسي 👮🏻‍♂'
-msg.TheRank = 'منشى اساسي 👮🏻‍♂'
-msg.Rank = 1
+elseif msg.GroupActive and redis:sismember(max..':KARA_BOT:'..msg.chat_id_,msg.sender_user_id_) then 
+msg.TheRankCmd = 'المنشىء الاساسي👷🏽'
+msg.TheRank = 'المنشىء الاساسي👷🏽 '
+msg.Rank = 3
 elseif msg.GroupActive and redis:sismember(max..':MONSHA_BOT:'..msg.chat_id_,msg.sender_user_id_) then 
 msg.TheRankCmd = 'المنشىء 👷🏽'
 msg.TheRank = 'المنشىء 👷🏽'
-msg.Rank = 3
+msg.Rank = 4
 elseif msg.GroupActive and redis:sismember(max..'owners:'..msg.chat_id_,msg.sender_user_id_) then 
 msg.TheRankCmd = 'المدير 👨🏼‍⚕️' 
 msg.TheRank = 'مدير البوت 👨🏼‍⚕️' 
-msg.Rank = 4
+msg.Rank = 5
 elseif msg.GroupActive and redis:sismember(max..'admins:'..msg.chat_id_,msg.sender_user_id_) then 
 msg.TheRankCmd = 'الادمن 👨🏼‍🎓'
 msg.TheRank = 'ادمن في البوت 👨🏼‍🎓'
-msg.Rank = 5
+msg.Rank = 6
 elseif msg.GroupActive and redis:sismember(max..'whitelist:'..msg.chat_id_,msg.sender_user_id_) then 
 msg.TheRank = 'عضو مميز ⭐️'
-msg.Rank = 6
+msg.Rank = 7
 elseif msg.sender_user_id_ == our_id then
 msg.Rank = 8
 else
 msg.TheRank = 'فقط عضو 🙍🏼‍♂️'
-msg.Rank = 10 
+msg.Rank = 11
 end
-
+ 
 if msg.Rank == 1 then
 msg.SudoBase = true
-end
-
-if msg.Rank == 1 then
-msg.Kara = true
 end
  
 if msg.Rank == 1 or msg.Rank == 2 then
@@ -295,18 +291,22 @@ msg.SudoUser = true
 end
 
 if msg.Rank == 1 or msg.Rank == 2 or msg.Rank == 3 then
-msg.Creator = true
+msg.Kara = true
 end
 
 if msg.Rank == 1 or msg.Rank == 2 or msg.Rank == 3 or msg.Rank == 4 then
-msg.Director = true
+msg.Creator = true
 end
 
 if msg.Rank == 1 or msg.Rank == 2 or msg.Rank == 3 or msg.Rank == 4 or msg.Rank == 5 then
+msg.Director = true
+end
+
+if msg.Rank == 1 or msg.Rank == 2 or msg.Rank == 3 or msg.Rank == 4 or msg.Rank == 5 or msg.Rank == 6 then
 msg.Admin = true
 end
 
-if msg.Rank == 6 then
+if msg.Rank == 7 then
 msg.Special = true
 end
 
