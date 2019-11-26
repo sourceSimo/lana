@@ -1,12 +1,10 @@
 --[[
 ─▄█▀█▄──▄███▄─
 ▐█░██████████▌
-─██▒█████████─
-──▀████████▀──┊@auuuvu
+─██▒L    A    N    A███─
+──▀████████▀──┊@M0000
 ─────▀██▀─────
-┊ＭᎯẊ. ‿ @uop70
-تم تطوير وبرمجة السورس من قبل كارا ┊
-┊@auuuvu ‿ @uop70 
+┊lana ‿ @M0000
 #-------------------------------------------------------------------
 ]]
 local function download(file_id, dl_cb, cmd)
@@ -125,13 +123,11 @@ if not TokenBot then
 print('\27[0;33m>>'..[[
 ─▄█▀█▄──▄███▄─
 ▐█░██████████▌
-─██▒█████████─
-──▀████████▀──┊@auuuvu
+─██▒L    A    N    A███─
+──▀████████▀──┊@M0000
 ─────▀██▀─────
-┊ＭᎯẊ ‿ @uop70
-تم تطوير وبرمجة السورس من قبل كارا ┊
-┊@auuuvu ‿ @uop70 
--------------------------------------------------------------------
+┊lana ‿ @M0000
+#-------------------------------------------------------------------
 ]]..'\027[0;32m')
 create_config() 
 else
@@ -159,17 +155,14 @@ print('\27[31m! Error File Not "Run inc/locks.lua" !\n\27[39m')
 print(tostring(io.popen("lua inc/locks.lua"):read('*all')))
 end
 
-print('\27[0;33m>>'..[[
+print('\27[0;33m>>'..--[[
 ─▄█▀█▄──▄███▄─
-▐█░██████████▌
-─██▒█████████─
-──▀████████▀──┊@auuuvu
+▐█░███████    ██▌
+─██  L    A    N    A   ███─
+──▀████████▀──┊@M0000
 ─────▀██▀─────
-┊ＭᎯẊ ‿ @uop70
-تم تطوير وبرمجة السورس من قبل كارا ┊
-┊@auuuvu ‿ @uop70 
--------------------------------------------------------------------
-                                                  
+┊lana ‿ @M0000
+#-------------------------------------------------------------------
 ]]..'\027[0;32m'
 ..'¦ TOKEN_BOT: \27[1;34m'..Token..'\027[0;32m\n'
 ..'¦ BOT__INFO: \27[1;34m'.. Bot_User..'\27[0;36m » ('..max..')\027[0;32m\n'
@@ -468,15 +461,15 @@ function tdcli_update_callback(data)
 	UpdateSourceStart = false
 	EditMsg(data.message_.chat_id_,data.message_.id_,'10% - |█          |')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'20% - |███         |')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/inc/Run.lua','./inc/Run.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/inc/Run.lua','./inc/Run.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'40% - |█████       |')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/inc/locks.lua','./inc/locks.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/inc/locks.lua','./inc/locks.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'60% - |███████     |')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/inc/Script.lua','./inc/Script.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/inc/Script.lua','./inc/Script.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'80% - |█████████   |')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/inc/functions.lua','./inc/functions.lua')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/plugins/zhrfa.lua','./plugins/zhrfa.lua')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/plugins/games.lua','./plugins/games.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/inc/functions.lua','./inc/functions.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/plugins/zhrfa.lua','./plugins/zhrfa.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/plugins/games.lua','./plugins/games.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'100% - |█████████████|\n\n🔝*¦* السورس الى اصدار \n📟*¦* تم اعاده تشغيل السورس بنجاح')
 	dofile("./inc/Run.lua")
 	print("Update Source And Reload ~ ./inc/Run.lua")
@@ -505,12 +498,12 @@ function tdcli_update_callback(data)
 	end)
 	end 
 	if msg.text== 'Update Source' and msg.sender_user_id_ == SUDO_ID then
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/inc/Run.lua','./inc/Run.lua')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/inc/Script.lua','./inc/Script.lua')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/inc/functions.lua','./inc/functions.lua')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/inc/locks.lua','./inc/locks.lua')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/plugins/zhrfa.lua','./plugins/zhrfa.lua')
-	download_file('https://raw.githubusercontent.com/MAXTELE/MAX/master/plugins/games.lua','./plugins/games.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/inc/Run.lua','./inc/Run.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/inc/Script.lua','./inc/Script.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/inc/functions.lua','./inc/functions.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/inc/locks.lua','./inc/locks.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/plugins/zhrfa.lua','./plugins/zhrfa.lua')
+	download_file('https://raw.githubusercontent.com//TEMLANA/LANA/master/plugins/games.lua','./plugins/games.lua')
 	sendMsg(msg.chat_id_,msg.id_,'👷🏽| {* تــم تحديث وتثبيت السورس  *} 📡.\n\n👨🏼‍💼| { Bot is Update » }👍🏿',nil,function(arg,data)
 	dofile("./inc/Run.lua")
 	print("Reload ~ ./inc/Run.lua")
