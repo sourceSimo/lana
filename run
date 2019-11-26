@@ -3,10 +3,10 @@
 
 #      ▇▇▇                                       ▇▇▇               ▄▇▇▇▇▇▄                 ▇▇                                    ▇▇                
 #      ▇▇        ▇                        ▇       ▇▇             ▄▇                ▇▄                        ▇▇                  ▇▇
-#      ▇▇          ▇ @auuuvu   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
-#      ▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @auuuvu
-#      ▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @uop70  ▇▄                 ▇▇                 ▇▇
-#      ▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source TH3max BY @uop70
+#      ▇▇          ▇ @M0000   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
+#      ▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @M0000
+#      ▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @M0000  ▇▄                 ▇▇                 ▇▇
+#      ▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source TH3max BY @M0009
 #---------------------------------------------------------------------
 cd $(cd $(dirname $0); pwd)
  
@@ -24,10 +24,10 @@ if [ "$Version" == "18" ];then
 echo -e "${GREEN}
 ▇▇▇                                       ▇▇▇               ▄▇▇▇▇▇▄                 ▇▇                                    ▇▇                
 ▇▇        ▇                        ▇       ▇▇             ▄▇                ▇▄                        ▇▇                  ▇▇
-▇▇          ▇ @auuuvu   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
-▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @auuuvu
-▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @uop70  ▇▄                 ▇▇                 ▇▇
-▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source TH3max BY @uop70
+▇▇          ▇ @M0000   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
+▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @M0000
+▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @M0000  ▇▄                 ▇▇                 ▇▇
+▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source TH3max BY @M0000
 ----------------------------------------------------------------------${CNIL}"
 echo -e "${RED}| للاسف لايمكنك تنصيب السورس ع نظام اوبنتو {${Version}} يجب ان يكون على اصدار  اقل مثلا  ${SMAY}14 او 16
 ${CNIL}";
@@ -70,10 +70,10 @@ sudo rm -fr ../.telegram-cli
 done
 else
 
-if ! screen -list | grep -q "max"; then
-screen -S max ./run R
+if ! screen -list | grep -q "lana"; then
+screen -S lana ./run R
 fi
 screen -X -S max kill
-screen -S max ./run R
+screen -S lana ./run R
 fi
 
