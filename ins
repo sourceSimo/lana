@@ -64,7 +64,7 @@ if [ "${PKG_OK}" == "installed" ]; then
 if [ "$1" == "-R" ] ; then
 GET_INSTALL="NO"
 else
-GET_INSTALL=$(redis-cli get TH3max_INSTALL)
+GET_INSTALL=$(redis-cli get LANA_INSTALL)
 fi
 if [ "${GET_INSTALL}" == "Yes" ]; then
 echo -e "
@@ -84,7 +84,7 @@ echo -e "\x1B[01;90m\n¦ software-properties-common installing ... \n\x1B[0m"
 sudo apt-get install software-properties-common -y
 echo -e "\x1B[01;90m\n¦ ubuntu-toolchain installing ...\n \x1B[0m"
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-# BY _ [ KARA >> @auuuvu | KAIDO >> @uop70 ]
+# BY _ [ AHMAD >> @M0000 | KAIDO >> @M0000 ]
 echo -e "\x1B[01;90m\n¦ install luarocks v2.4.3 ... \n\x1B[0m"
 sudo  wget https://luarocks.org/releases/luarocks-2.4.3.tar.gz
 sudo  tar zxpf luarocks-2.4.3.tar.gz
