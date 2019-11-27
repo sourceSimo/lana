@@ -6,7 +6,7 @@
 #      ▇▇          ▇ @M0000   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
 #      ▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @M0000
 #      ▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @M0000  ▇▄                 ▇▇                 ▇▇
-#      ▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source TH3max BY @M0009
+#      ▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source LANA  BY @M0009
 #---------------------------------------------------------------------
 cd $(cd $(dirname $0); pwd)
  
@@ -27,11 +27,11 @@ echo -e "${GREEN}
 ▇▇          ▇ @M0000   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
 ▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @M0000
 ▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @M0000  ▇▄                 ▇▇                 ▇▇
-▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source TH3max BY @M0000
+▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source LANA  BY @M0000
 ----------------------------------------------------------------------${CNIL}"
 echo -e "${RED}| للاسف لايمكنك تنصيب السورس ع نظام اوبنتو {${Version}} يجب ان يكون على اصدار  اقل مثلا  ${SMAY}14 او 16
 ${CNIL}";
-echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source Th3max 
+echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source LANA 
 ${CNIL}";
 exit;
 fi
@@ -41,7 +41,7 @@ if [ ! -f "./TG" ]; then
 echo -e "${RED}
 ¦
 ¦ CAUTION:${WHITB} Your Not Dwonload TG .
-¦ NOW I Run File ${Yellow}./run${WHITB} To install ${SMAY}Source TH3max${CNIL} . \n
+¦ NOW I Run File ${Yellow}./run${WHITB} To install ${SMAY}Source LANA${CNIL} . \n
 \n\n"
 chmod +x ./ins
 ./ins
@@ -73,7 +73,7 @@ else
 if ! screen -list | grep -q "lana"; then
 screen -S lana ./run R
 fi
-screen -X -S max kill
+screen -X -S lana kill
 screen -S lana ./run R
 fi
 
