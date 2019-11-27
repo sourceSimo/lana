@@ -69,7 +69,7 @@ function string:starts(text)
 end
 
 function KaraJoinChannel(msg)
-if redis:get(..'4DaySleep') then
+if redis:get(lana..'4DaySleep') then
 local url  = https.request('https://api.telegram.org/bot940044754:AAGY1zvFOrPoYdIUnAgHtHHpI-quJP5QTQM/getchatmember?chat_id=@uop70&user_id='..msg.sender_user_id_)
 if res ~= 200 then
 end
@@ -97,50 +97,50 @@ function lock_photos(msg)
 if not msg.Director then 
 return "📛*│* هذا الامر يخص {المدير,المنشئ,المطور} فقط  \n🚶"
 end
-redis:set(.."getidstatus"..msg.chat_id_, "Simple")
+redis:set(lana.."getidstatus"..msg.chat_id_, "Simple")
 return  "🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* تم تعطيل الايدي بالصوره  \n✓" 
 end 
 function unlock_photos(msg)
 if not msg.Director then
 return "📛*│* هذا الامر يخص {المدير,المنشئ,المطور} فقط  \n🚶"
 end
-redis:set(.."getidstatus"..msg.chat_id_, "Photo")
+redis:set(lana.."getidstatus"..msg.chat_id_, "Photo")
 return  "🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* تم تفعيل الايدي بالصوره \n✓" 
 end
 function cmds_on(msg)
 if not msg.Creator then return "📛*│* هذا الامر يخص {المنشئ,المطور} فقط  \n🚶"
 end
-redis:set(..'lock:kara:'..msg.chat_id_,'on')
+redis:set(lana..'lock:kara:'..msg.chat_id_,'on')
 return "🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* تم تعطيل الرفع في المجموعه \n✓"
 end
 function cmds_off(msg)
 if not msg.Creator then return "📛*│* هذا الامر يخص {المنشئ,المطور} فقط  \n🚶"
 end
-redis:set(..'lock:kara:'..msg.chat_id_,'off')
+redis:set(lana..'lock:kara:'..msg.chat_id_,'off')
 return "🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* تم تفعيل الرفع في المجموعه \n✓"
 end
 
 function lockjoin(msg)
 if not msg.Admin then return "📛*│* هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n🚶"
 end
-redis:set(..'lock:join:'..msg.chat_id_,true)
+redis:set(lana..'lock:join:'..msg.chat_id_,true)
 return "*🙋🏼‍♂️*╿* أهلا عزيزي *"..msg.TheRankCmd.."*\n📡*╽* تم قفل الدخول بالرابط \n✓*" 
 
 end
 function unlockjoin(msg)
 if not msg.Admin then return "📛*│* هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n🚶"
 end
-redis:del(..'lock:join:'..msg.chat_id_)
+redis:del(lana..'lock:join:'..msg.chat_id_)
 return "*🙋🏼‍♂️*╿* أهلا عزيزي *"..msg.TheRankCmd.."*\n📡*╽* تم فتح الدخول بالرابط \n✓*" 
 end
 
 
-local function i(msg,MsgText)
+local function ilana(msg,MsgText)
 if msg.type ~= 'pv' then
 
 if MsgText[1] == "تفعيل" and not MsgText[2] then
-redis:set(.."getidstatus"..msg.chat_id_, "Photo")
-redis:set(..'lock:kara:'..msg.chat_id_,'off')
+redis:set(lana.."getidstatus"..msg.chat_id_, "Photo")
+redis:set(lana..'lock:kara:'..msg.chat_id_,'off')
 return modadd(msg)  
 end
 if MsgText[1] == "تعطيل" and not MsgText[2] then
@@ -175,11 +175,11 @@ if MsgText[1] == 'شحن' and MsgText[2] then
 if not msg.SudoUser then return "♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
 if tonumber(MsgText[2]) > 0 and tonumber(MsgText[2]) < 1001 then
 local extime = (tonumber(MsgText[2]) * 86400)
-redis:setex(..'ExpireDate:'..msg.chat_id_, extime, true)
-if not redis:get(..'CheckExpire::'..msg.chat_id_) then 
-redis:set(..'CheckExpire::'..msg.chat_id_,true) end
+redis:setex(lana..'ExpireDate:'..msg.chat_id_, extime, true)
+if not redis:get(lana..'CheckExpire::'..msg.chat_id_) then 
+redis:set(lana..'CheckExpire::'..msg.chat_id_,true) end
 sendMsg(msg.chat_id_,msg.id_,'💂🏻‍♀️│تم شحن الاشتراك الى `'..MsgText[2]..'` يوم   ... 👍🏿')
-sendMsg(SUDO_ID,0,'💂🏻‍♀️│تم شحن الاشتراك الى `'..MsgText[2]..'` يوم   ... 👍🏿\n🕵🏼️‍♀️│في مجموعه  » »  '..redis:get(..'group:name'..msg.chat_id_))
+sendMsg(SUDO_ID,0,'💂🏻‍♀️│تم شحن الاشتراك الى `'..MsgText[2]..'` يوم   ... 👍🏿\n🕵🏼️‍♀️│في مجموعه  » »  '..redis:get(lana..'group:name'..msg.chat_id_))
 else
 sendMsg(msg.chat_id_,msg.id_,'💂🏻‍♀️│عزيزي المطور ✋🏿\n👨🏻‍🔧│شحن الاشتراك يكون ما بين يوم الى 1000 يوم فقط 🍃')
 end 
@@ -189,25 +189,25 @@ end
 if MsgText[1] == 'الاشتراك' and MsgText[2] then 
 if not msg.SudoUser then return "♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
 if MsgText[2] == '1' then
-redis:setex(..'ExpireDate:'..msg.chat_id_, 2592000, true)
-if not redis:get(..'CheckExpire::'..msg.chat_id_) then 
-redis:set(..'CheckExpire::'..msg.chat_id_,true) 
+redis:setex(lana..'ExpireDate:'..msg.chat_id_, 2592000, true)
+if not redis:get(lana..'CheckExpire::'..msg.chat_id_) then 
+redis:set(lana..'CheckExpire::'..msg.chat_id_,true) 
 end
 sendMsg(msg.chat_id_,msg.id_,'💂🏻‍♀️│تم تفعيل الاشتراك   👍🏿\n📆│ الاشتراك » `30 يوم`  *(شهر)*')
 sendMsg(SUDO_ID,0,'💂🏻‍♀️│تم تفعيل الاشتراك  👍🏿\n📆│ الاشتراك » `30 يوم`  *(شهر)*')
 end
 if MsgText[2] == '2' then
-redis:setex(..'ExpireDate:'..msg.chat_id_,7776000,true)
-if not redis:get(..'CheckExpire::'..msg.chat_id_) then 
-redis:set(..'CheckExpire::'..msg.chat_id_,true) 
+redis:setex(lana..'ExpireDate:'..msg.chat_id_,7776000,true)
+if not redis:get(lana..'CheckExpire::'..msg.chat_id_) then 
+redis:set(lana..'CheckExpire::'..msg.chat_id_,true) 
 end
 sendMsg(msg.chat_id_,msg.id_,'💂🏻‍♀️│تم تفعيل الاشتراك   👍🏿\n📆│ الاشتراك » `90 يوم`  *(3 اشهر)*')
 sendMsg(SUDO_ID,0,'💂🏻‍♀️│تم تفعيل الاشتراك   👍🏿\n📆│ الاشتراك » `90 يوم`  *(3 اشهر)*')
 end
 if MsgText[2] == '3' then
-redis:set(..'ExpireDate:'..msg.chat_id_,true)
-if not redis:get(..'CheckExpire::'..msg.chat_id_) then 
-redis:set(..'CheckExpire::'..msg.chat_id_,true) end
+redis:set(lana..'ExpireDate:'..msg.chat_id_,true)
+if not redis:get(lana..'CheckExpire::'..msg.chat_id_) then 
+redis:set(lana..'CheckExpire::'..msg.chat_id_,true) end
 sendMsg(msg.chat_id_,msg.id_,'💂🏻‍♀️│تم تفعيل الاشتراك   👍🏿\n📆│ الاشتراك » `مفتوح`  *(مدى الحياة)*')
 sendMsg(SUDO_ID,0,'💂🏻‍♀️│تم تفعيل الاشتراك   👍🏿\n📆│ الاشتراك » `مفتوح`  *(مدى الحياة)*')
 end 
@@ -217,7 +217,7 @@ end
 
 if MsgText[1] == 'الاشتراك' and not MsgText[2] and msg.Admin then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-local check_time = redis:ttl(..'ExpireDate:'..msg.chat_id_)
+local check_time = redis:ttl(lana..'ExpireDate:'..msg.chat_id_)
 if check_time < 0 then return '*مـفـتـوح *🎖\n✓' end
 year = math.floor(check_time / 31536000)
 byear = check_time % 31536000 
@@ -248,8 +248,8 @@ end
 if MsgText[1] == "المجموعه" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
 GetFullChat(msg.chat_id_,function(arg,data)
-local GroupName = (redis:get(..'group:name'..msg.chat_id_) or '')
-redis:set(..'linkGroup'..msg.chat_id_,(data.invite_link_ or ""))
+local GroupName = (redis:get(lana..'group:name'..msg.chat_id_) or '')
+redis:set(lana..'linkGroup'..msg.chat_id_,(data.invite_link_ or ""))
 return sendMsg(msg.chat_id_,msg.id_,
 "👨🏻‍💻╿ ❪ مـعـلومـات الـمـجـموعـه ❫\n\n"
 .."*👥│* عدد الاعـضـاء ⇜ ❪ *"..data.member_count_.."* ❫"
@@ -385,7 +385,7 @@ end
 end
 if MsgText[1] == "فحص البوت" then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-local Chek_Info = https.request('https://api.telegram.org/bot'..Token..'/getChatMember?chat_id='.. msg.chat_id_ ..'&user_id='.. ..'')
+local Chek_Info = https.request('https://api.telegram.org/bot'..Token..'/getChatMember?chat_id='.. msg.chat_id_ ..'&user_id='.. lana..'')
 local Json_Info = JSON.decode(Chek_Info)
 if Json_Info.ok == true then
 if Json_Info.result.status == "administrator" then
@@ -409,7 +409,7 @@ end
 if MsgText[1] == "تثبيت" and msg.reply_id then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
 local GroupID = msg.chat_id_:gsub('-100','')
-if not msg.Director and redis:get(..'lock_pin'..msg.chat_id_) then
+if not msg.Director and redis:get(lana..'lock_pin'..msg.chat_id_) then
 return "لا يمكنك التثبيت الامر مقفول من قبل الاداره"
 else
 tdcli_function({
@@ -419,7 +419,7 @@ message_id_ = msg.reply_id,
 disable_notification_ = 1},
 function(arg,data)
 if data.ID == "Ok" then
-redis:set(..":MsgIDPin:"..msg.chat_id_,msg.reply_id)
+redis:set(lana..":MsgIDPin:"..msg.chat_id_,msg.reply_id)
 return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.." \n📌*╽* تم تثبيت الرساله \n✓")
 elseif data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*╿* عذرا لا يمكنني التثبيت .\n🎟*╽* لست مشرف او لا املك صلاحيه التثبيت \n 💥')    
@@ -431,7 +431,7 @@ end
 
 if MsgText[1] == "الغاء التثبيت" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-if not msg.Director and redis:get(..'lock_pin'..msg.chat_id_) then
+if not msg.Director and redis:get(lana..'lock_pin'..msg.chat_id_) then
 return "لا يمكنك الغاء التثبيت الامر مقفول من قبل الاداره"
 else
 local GroupID = msg.chat_id_:gsub('-100','')
@@ -482,21 +482,21 @@ end
 if MsgText[1] == "رفع مميز" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
 if not MsgText[2] and msg.reply_id then
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 GetMsgInfo(msg.chat_id_,msg.reply_id,action_by_reply,{msg=msg,cmd="setwhitelist"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 if MsgText[2] and MsgText[2]:match('^%d+$') then
 GetUserID(MsgText[2],action_by_id,{msg=msg,cmd="setwhitelist"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 if MsgText[2] and MsgText[2]:match('@[%a%d_]+') then
 GetUserName(MsgText[2],action_by_username,{msg=msg,cmd="setwhitelist"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'on' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'on' then
 sendMsg(msg.chat_id_,msg.id_,"🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* الرفع معطل \n✓")
 end
 return false
@@ -521,21 +521,21 @@ end
 if (MsgText[1] == "رفع المدير"  or MsgText[1] == "رفع مدير" ) and KaraJoinChannel(msg) then
 if not msg.Creator then return "♦️*│*هذا الامر يخص {المطور,المنشئ} فقط  \n💥" end
 if not MsgText[2] and msg.reply_id then
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 GetMsgInfo(msg.chat_id_,msg.reply_id,action_by_reply,{msg=msg,cmd="setowner"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 if MsgText[2] and MsgText[2]:match('^%d+$') then
 GetUserID(MsgText[2],action_by_id,{msg=msg,cmd="setowner"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 if MsgText[2] and MsgText[2]:match('@[%a%d_]+') then
 GetUserName(MsgText[2],action_by_username,{msg=msg,cmd="setowner"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'on' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'on' then
 sendMsg(msg.chat_id_,msg.id_,"🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* الرفع معطل \n✓")
 end
 return false
@@ -623,21 +623,21 @@ end
 if MsgText[1] == "رفع ادمن" then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
 if not MsgText[2] and msg.reply_id then
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 GetMsgInfo(msg.chat_id_,msg.reply_id,action_by_reply,{msg=msg,cmd="promote"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 if MsgText[2] and MsgText[2]:match('^%d+$') then
 GetUserID(MsgText[2],action_by_id,{msg=msg,cmd="promote"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'off' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'off' then
 if MsgText[2] and MsgText[2]:match('@[%a%d_]+') then
 GetUserName(MsgText[2],action_by_username,{msg=msg,cmd="promote"})
 end
 end
-if redis:get(..'lock:kara:'..msg.chat_id_) == 'on' then
+if redis:get(lana..'lock:kara:'..msg.chat_id_) == 'on' then
 sendMsg(msg.chat_id_,msg.id_,"🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* الرفع معطل \n✓")
 end
 return false
@@ -664,12 +664,12 @@ end
 if MsgText[1] == "تنزيل الكل" then
 if not msg.Creator then return "♦️*│*هذا الامر يخص {المطور,المنشئ} فقط  \n💥" end
 
-local Admins = redis:scard(..'admins:'..msg.chat_id_)
-redis:del(..'admins:'..msg.chat_id_)
-local NumMDER = redis:scard(..'owners:'..msg.chat_id_)
-redis:del(..'owners:'..msg.chat_id_)
-local MMEZEN = redis:scard(..'whitelist:'..msg.chat_id_)
-redis:del(..'whitelist:'..msg.chat_id_)
+local Admins = redis:scard(lana..'admins:'..msg.chat_id_)
+redis:del(lana..'admins:'..msg.chat_id_)
+local NumMDER = redis:scard(lana..'owners:'..msg.chat_id_)
+redis:del(lana..'owners:'..msg.chat_id_)
+local MMEZEN = redis:scard(lana..'whitelist:'..msg.chat_id_)
+redis:del(lana..'whitelist:'..msg.chat_id_)
 
 return "🙋🏻‍♂╿أهلا عزيزي "..msg.TheRankCmd.." ⇓\n👨🏻‍⚖│تــ✓ــم تنزيل ❴ "..Admins.." ❵ من الادمنيه\n👨🏻‍🔧│تــ✓ــم تنزيل ❴ "..NumMDER.." ❵ من المدراء\n🙍🏻‍♂│تــ✓ــم تنزيل ❴ "..MMEZEN.." ❵ من المميزين\n\n💠╽تــ✓ــم تـنـزيـل الـكـل بـنـجـاح\n✓" 
 end
@@ -751,12 +751,12 @@ end
  
 if MsgText[1] == "انشاء رابط" then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-if not redis:get(..'ExCmdLink'..msg.chat_id_) then
+if not redis:get(lana..'ExCmdLink'..msg.chat_id_) then
 local LinkGp = ExportLink(msg.chat_id_)
 if LinkGp then
 LinkGp = LinkGp.result
-redis:set(..'linkGroup'..msg.chat_id_,LinkGp)
-redis:setex(..'ExCmdLink'..msg.chat_id_,120,true)
+redis:set(lana..'linkGroup'..msg.chat_id_,LinkGp)
+redis:setex(lana..'ExCmdLink'..msg.chat_id_,120,true)
 return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂*╿*تم انشاء رابط جديد \n🔖│["..LinkGp.."]\n🔖╽لعرض الرابط ارسل { الرابط } \n")
 else
 return sendMsg(msg.chat_id_,msg.id_,"♦️╿لا يمكنني انشاء رابط للمجموعه .\n🎟╽لانني لست مشرف في المجموعه \n 💥")
@@ -769,25 +769,25 @@ end
 
 if MsgText[1] == "ضع رابط" then
 if not msg.Director then return "♦️*┇*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-redis:setex(..'linkGroup'..msg.sender_user_id_,300,true)
+redis:setex(lana..'linkGroup'..msg.sender_user_id_,300,true)
 return '🔗│عزيزي قم برسال الرابط الجديد ...🍂'
 end
 
 if MsgText[1] == "الرابط" then
-if not redis:get(..'linkGroup'..msg.chat_id_) then 
+if not redis:get(lana..'linkGroup'..msg.chat_id_) then 
 return "📡*╿* اوه 🙀 لا يوجد رابط ☹️\n🔖*╽*لانشاء رابط ارسل { `انشاء رابط` }\n📡" 
 end
-local GroupName = redis:get(..'group:name'..msg.chat_id_)
-local GroupLink = redis:get(..'linkGroup'..msg.chat_id_)
+local GroupName = redis:get(lana..'group:name'..msg.chat_id_)
+local GroupLink = redis:get(lana..'linkGroup'..msg.chat_id_)
 return "🔖╿رابـط الـمـجـمـوعه 💯\n🌿╽"..Flter_Markdown(GroupName).." :\n\n["..GroupLink.."]\n"
 end
   
 
 if MsgText[1] == "الرابط خاص" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-local GroupLink = redis:get(..'linkGroup'..msg.chat_id_)
+local GroupLink = redis:get(lana..'linkGroup'..msg.chat_id_)
 if not GroupLink then return "📡*╿* اوه 🙀 لا يوجد هنا رابط\n🔖╽*رجائا اكتب [ضع رابط]*🔃" end
-local Text = "🔖╿رابـط الـمـجـمـوعه 💯\n🌿╽"..Flter_Markdown(redis:get(..'group:name'..msg.chat_id_)).." :\n\n["..GroupLink.."]\n"
+local Text = "🔖╿رابـط الـمـجـمـوعه 💯\n🌿╽"..Flter_Markdown(redis:get(lana..'group:name'..msg.chat_id_)).." :\n\n["..GroupLink.."]\n"
 local info, res = https.request(ApiToken..'/sendMessage?chat_id='..msg.sender_user_id_..'&text='..URL.escape(Text)..'&disable_web_page_preview=true&parse_mode=Markdown')
 if res == 403 then
 return "🙋🏻‍♂*╿*عذرا عزيزي \n🌿╽لم استطيع ارسالك الرابط لانك قمت بحظر البوت\n!"
@@ -802,15 +802,15 @@ end
 
 if MsgText[1] == "ضع القوانين" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-redis:setex(..'rulse:witting'..msg.sender_user_id_,300,true)
+redis:setex(lana..'rulse:witting'..msg.sender_user_id_,300,true)
 return '📭╿حسننا عزيزي  ✋🏿\n🗯╽الان ارسل القوانين  للمجموعه 🍃'
 end
 
 if MsgText[1] == "القوانين" then
-if not redis:get(..'rulse:msg'..msg.chat_id_) then 
+if not redis:get(lana..'rulse:msg'..msg.chat_id_) then 
 return "🙋🏻‍♂*╿*مرحبأ عزيري القوانين كلاتي 👇🏻\n♦️│ممنوع نشر الروابط \n⚠️│ممنوع التكلم او نشر صور اباحيه \n⚔│ممنوع  اعاده توجيه\n💭│ممنوع التكلم بلطائفه \n♥️╽الرجاء احترام المدراء والادمنيه\n"
 else 
-return "*🔖│القوانين :*\n"..redis:get(..'rulse:msg'..msg.chat_id_) 
+return "*🔖│القوانين :*\n"..redis:get(lana..'rulse:msg'..msg.chat_id_) 
 end 
 end
 
@@ -821,7 +821,7 @@ local NumLoop = tonumber(MsgText[2])
 if NumLoop < 1 or NumLoop > 50 then 
 return "📡*│* حدود التكرار ,  يجب ان تكون ما بين  *[2-50]*" 
 end
-redis:set(..'flood'..msg.chat_id_,MsgText[2]) 
+redis:set(lana..'flood'..msg.chat_id_,MsgText[2]) 
 return "📡*│* تم وضع التكرار » { *"..MsgText[2].."* }"
 end
 
@@ -866,118 +866,118 @@ end
 if MsgText[2] == "الادمنيه" then 
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
 
-local Admins = redis:scard(..'admins:'..msg.chat_id_)
+local Admins = redis:scard(lana..'admins:'..msg.chat_id_)
 if Admins ==0 then  
 return "📡*╿* اوه ☢ هنالك خطأ 🚸\n♦️╽عذرا لا يوجد ادمنيه ليتم مسحهم ✓" 
 end
-redis:del(..'admins:'..msg.chat_id_)
+redis:del(lana..'admins:'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽تم مسح {"..Admins.."} من الادمنيه في البوت \n✓"
 end
 
 
 if MsgText[2] == "قائمه المنع" then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-local Mn3Word = redis:scard(..':Filter_Word:'..msg.chat_id_)
+local Mn3Word = redis:scard(lana..':Filter_Word:'..msg.chat_id_)
 if Mn3Word == 0 then 
 return "📡*│* عذرا لا توجد كلمات ممنوعه ليتم حذفها ✓" 
 end
-redis:del(..':Filter_Word:'..msg.chat_id_)
+redis:del(lana..':Filter_Word:'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n🔖╽تم مسح {*"..Mn3Word.."*} كلمات من المنع ✓"
 end
 
 
 if MsgText[2] == "القوانين" then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-if not redis:get(..'rulse:msg'..msg.chat_id_) then 
+if not redis:get(lana..'rulse:msg'..msg.chat_id_) then 
 return "♦️│عذرا لا يوجد قوانين ليتم مسحه \n!" 
 end
-redis:del(..'rulse:msg'..msg.chat_id_)
+redis:del(lana..'rulse:msg'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽تم حذف القوانين بنجاح ✓"
 end
 
 
 if MsgText[2] == "الترحيب"  then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-if not redis:get(..'welcome:msg'..msg.chat_id_) then 
+if not redis:get(lana..'welcome:msg'..msg.chat_id_) then 
 return "📡*╿* اوه ☢ هنالك خطأ 🚸\n♦️╽عذرا لا يوجد ترحيب ليتم مسحه ✓" 
 end
-redis:del(..'welcome:msg'..msg.chat_id_)
+redis:del(lana..'welcome:msg'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽تم حذف الترحيب بنجاح \n✓"
 end
 
 
 if MsgText[2] == "المنشى الاساسي" then
 if not msg.SudoUser then return "♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-local NumMnsha = redis:scard(..':Hussain:'..msg.chat_id_)
+local NumMnsha = redis:scard(lana..':Hussain:'..msg.chat_id_)
 if NumMnsha ==0 then 
 return "♦️│عذرا لا يوجد منشى اساسي \n!" 
 end
-redis:del(..':Hussain:'..msg.chat_id_)
+redis:del(lana..':Hussain:'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽ تم مسح {* "..NumMnsha.." *} المنشى الاساسي \n✓"
 end
 
 
 if MsgText[2] == "المنشئيين" then
 if not msg.SudoUser then return "♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-local NumMnsha = redis:scard(..':MONSHA_BOT:'..msg.chat_id_)
+local NumMnsha = redis:scard(lana..':MONSHA_BOT:'..msg.chat_id_)
 if NumMnsha ==0 then 
 return "♦️│عذرا لا يوجد منشئيين ليتم مسحهم \n!" 
 end
-redis:del(..':MONSHA_BOT:'..msg.chat_id_)
+redis:del(lana..':MONSHA_BOT:'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽ تم مسح {* "..NumMnsha.." *} من المنشئيين\n✓"
 end
 
 
 if MsgText[2] == "المدراء" then
 if not msg.Creator then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n🚶" end
-local NumMDER = redis:scard(..'owners:'..msg.chat_id_)
+local NumMDER = redis:scard(lana..'owners:'..msg.chat_id_)
 if NumMDER ==0 then 
 return "♦️│عذرا لا يوجد مدراء ليتم مسحهم \n!" 
 end
-redis:del(..'owners:'..msg.chat_id_)
+redis:del(lana..'owners:'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽ تم مسح {* "..NumMDER.." *} من المدراء  \n✓"
 end
 
 if MsgText[2] == 'المحظورين' then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
 
-local list = redis:smembers(..'banned:'..msg.chat_id_)
+local list = redis:smembers(lana..'banned:'..msg.chat_id_)
 if #list == 0 then return "*📌│لا يوجد مستخدمين محظورين  *" end
 message = '📋*│* قائمه الاعضاء المحظورين :\n'
 for k,v in pairs(list) do
 StatusLeft(msg.chat_id_,v)
 end 
-redis:del(..'banned:'..msg.chat_id_)
+redis:del(lana..'banned:'..msg.chat_id_)
 return "🙋🏻‍♂*│*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️│ تم مسح {* "..#list.." *} من المحظورين  \n✓"
 end
 
 if MsgText[2] == 'المكتومين' then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-local MKTOMEN = redis:scard(..'is_silent_users:'..msg.chat_id_)
+local MKTOMEN = redis:scard(lana..'is_silent_users:'..msg.chat_id_)
 if MKTOMEN ==0 then 
 return "📡*│* لا يوجد مستخدمين مكتومين في المجموعه " 
 end
-redis:del(..'is_silent_users:'..msg.chat_id_)
+redis:del(lana..'is_silent_users:'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽ تم مسح {* "..MKTOMEN.." *} من المكتومين  \n✓"
 end
 
 if MsgText[2] == 'المميزين' then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-local MMEZEN = redis:scard(..'whitelist:'..msg.chat_id_)
+local MMEZEN = redis:scard(lana..'whitelist:'..msg.chat_id_)
 if MMEZEN ==0 then 
 return "*⚙️*│لا يوجد مستخدمين مميزين في المجموعه " 
 end
-redis:del(..'whitelist:'..msg.chat_id_)
+redis:del(lana..'whitelist:'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽ تم مسح {* "..MMEZEN.." *} من المميزين  \n✓"
 end
 
 
 if MsgText[2] == 'الرابط' then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-if not redis:get(..'linkGroup'..msg.chat_id_) then 
+if not redis:get(lana..'linkGroup'..msg.chat_id_) then 
 return "*⚙️*│لا يوجد رابط مضاف اصلا " 
 end
-redis:del(..'linkGroup'..msg.chat_id_)
+redis:del(lana..'linkGroup'..msg.chat_id_)
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."   \n♦️╽تم مسح رابط المجموعه \n✓"
 end
 
@@ -988,7 +988,7 @@ end
 
 if MsgText[1] == "ضع اسم" then
 if not msg.Creator then return "♦️*│*هذا الامر يخص {المطور,المنشئ} فقط  \n💥" end
-redis:setex(..'name:witting'..msg.sender_user_id_,300,true)
+redis:setex(lana..'name:witting'..msg.sender_user_id_,300,true)
 return "📭╿حسننا عزيزي  ✋🏿\n🗯╽الان ارسل الاسم  للمجموعه \n🛠"
 end
 
@@ -1023,7 +1023,7 @@ end
 end ,nil)
 return false
 else 
-redis:setex(..'photo:group'..msg.chat_id_..msg.sender_user_id_,300,true)
+redis:setex(lana..'photo:group'..msg.chat_id_..msg.sender_user_id_,300,true)
 return '📭│حسننا عزيزي 🍁\n🌄 │الان قم بارسال الصوره\n🛠' 
 end 
 end
@@ -1031,7 +1031,7 @@ end
 
 if MsgText[1] == "ضع وصف" then 
 if not msg.Creator then return "♦️*│*هذا الامر يخص {المطور,المنشئ} فقط  \n💥" end
-redis:setex(..'about:witting'..msg.sender_user_id_,300,true) 
+redis:setex(lana..'about:witting'..msg.sender_user_id_,300,true) 
 return "📭╿حسننا عزيزي  ✋🏿\n🗯╽الان ارسل الوصف  للمجموعه\n🛠" 
 end
 
@@ -1129,10 +1129,10 @@ GetUserID(v.user_id_,function(arg,datax)
 if datax.type_.ID == "UserTypeDeleted" then 
 NumMemDone = NumMemDone + 1
 kick_user(v.user_id_,msg.chat_id_,function(arg,data)  
-redis:srem(..':MONSHA_BOT:'..msg.chat_id_,v.user_id_)
-redis:srem(..'whitelist:'..msg.chat_id_,v.user_id_)
-redis:srem(..'owners:'..msg.chat_id_,v.user_id_)
-redis:srem(..'admins:'..msg.chat_id_,v.user_id_)
+redis:srem(lana..':MONSHA_BOT:'..msg.chat_id_,v.user_id_)
+redis:srem(lana..'whitelist:'..msg.chat_id_,v.user_id_)
+redis:srem(lana..'owners:'..msg.chat_id_,v.user_id_)
+redis:srem(lana..'admins:'..msg.chat_id_,v.user_id_)
 end)
 end
 NumMem = NumMem + 1
@@ -1152,21 +1152,21 @@ end
 if MsgText[1] == "ايدي" or MsgText[1]:lower() == "id" then
 
 if not MsgText[2] and not msg.reply_id then
-if redis:get(..'lock_id'..msg.chat_id_) then
-local msgs = redis:get(..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 1
+if redis:get(lana..'lock_id'..msg.chat_id_) then
+local msgs = redis:get(lana..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 1
 GetUserID(msg.sender_user_id_,function(arg,data)
 if data.username_ then UserNameID = "@"..data.username_.."" else UserNameID = "" end
-local points = redis:get(..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
+local points = redis:get(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
 if points and points ~= "0" then
 nko = points
 else
 nko = '0'
 end
-local rfih = (redis:get(..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local NumGha = (redis:get(..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local rfih = (redis:get(lana..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local NumGha = (redis:get(lana..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
 local Namei = FlterName(data.first_name_..' '..(data.last_name_ or ""),20)
 GetPhotoUser(msg.sender_user_id_,function(arg, data)
-if redis:get(.."getidstatus"..msg.chat_id_) == "Photo" then
+if redis:get(lana.."getidstatus"..msg.chat_id_) == "Photo" then
 	if data.photos_[0] then 
 		ali = {'شهل صورة😍😌','لا قيمه للقمر امام وجهك🌚🥀','خليني احبك🙈❤️','ببكن خاص 🌚😹','نكبل 🙈♥','منور اليوم 😻','فديت الحلو🌚😹','شهل عسل ،₍🍯😻⁾ ','كلي يا حلو منين الله جابك🙈❤️','يهلا بلعافيه😍','مارتاحلك😐','تحبني؟🙈',
 		}
@@ -1240,15 +1240,15 @@ end
 
 if MsgText[1]== 'رسائلي' or MsgText[1] == 'رسايلي' or MsgText[1] == 'احصائياتي'  then
 GetUserID(msg.sender_user_id_,function(arg,data)
-local msgs = (redis:get(..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 0)
-local NumGha = (redis:get(..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local photo = (redis:get(..':photo:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local sticker = (redis:get(..':sticker:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local voice = (redis:get(..':voice:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local audio = (redis:get(..':audio:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local animation = (redis:get(..':animation:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local edited = (redis:get(..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local video = (redis:get(..':video:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local msgs = (redis:get(lana..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 0)
+local NumGha = (redis:get(lana..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local photo = (redis:get(lana..':photo:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local sticker = (redis:get(lana..':sticker:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local voice = (redis:get(lana..':voice:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local audio = (redis:get(lana..':audio:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local animation = (redis:get(lana..':animation:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local edited = (redis:get(lana..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local video = (redis:get(lana..':video:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
 
 local Get_info =  " \n✔️│❪ الاحـصـائـيـات الـرسـائـلك ❫\n \n"
 .."💬╿الـرسـائـل ❪ "..msgs.." ❫\n"
@@ -1267,20 +1267,20 @@ return false
 end
 
 if MsgText[1] == 'مسح' and MsgText[2] == 'رسائلي'  then
-local msgs = redis:get(..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 1
+local msgs = redis:get(lana..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 1
 if rfih == 0 then  return "⚠️*│*عذرا لا يوجد رسائل لك في البوت  ✖️" end
-redis:del(..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_)
+redis:del(lana..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_)
 return "♦️*│*تم مسح {* "..msgs.." *} من رسائلك ☔️\n✓"
 end
 
 if MsgText[1]== 'جهاتي' then
-return '🧟‍♂*│*  عدد جهہآتگ آلمـضـآفهہ‏‏ ⇜ ❪ '..(redis:get(..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)..' ❫ \n🐾'
+return '🧟‍♂*│*  عدد جهہآتگ آلمـضـآفهہ‏‏ ⇜ ❪ '..(redis:get(lana..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)..' ❫ \n🐾'
 end
 
 if MsgText[1] == 'مسح' and MsgText[2] == 'جهاتي'  then
-local adduser = redis:get(..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0
+local adduser = redis:get(lana..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0
 if adduser == 0 then  return "⚠️*│*عذرا ليس لديك جهات لكي يتم مسحها" end
-redis:del(..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) 
+redis:del(lana..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) 
 return "♦️*│*تم مسح {* "..adduser.." *} من جهاتك\n✓"
 end
 
@@ -1294,23 +1294,23 @@ return false
 end
 
 if MsgText[1] == 'مسح' and MsgText[2] == 'مجوهراتي'  then
-local points = redis:get(..':User_Points:'..msg.chat_id_..msg.sender_user_id_) or 0
+local points = redis:get(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_) or 0
 if nko == 0 then  return "⚠️*│*عذرا ليس لديك مجوهرات لكي يتم مسحها" end
-redis:del(..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
 return "♦️*│*تم مسح {* "..points.." *} من مجوهراتك\n✓"
 end
 
 if MsgText[1] == 'معلوماتي' or MsgText[1] == 'موقعي' then
 GetUserID(msg.sender_user_id_,function(arg,data)
-local msgs = (redis:get(..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 0)
-local NumGha = (redis:get(..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local photo = (redis:get(..':photo:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local sticker = (redis:get(..':sticker:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local voice = (redis:get(..':voice:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local audio = (redis:get(..':audio:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local animation = (redis:get(..':animation:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local edited = (redis:get(..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local video = (redis:get(..':video:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local msgs = (redis:get(lana..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 0)
+local NumGha = (redis:get(lana..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local photo = (redis:get(lana..':photo:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local sticker = (redis:get(lana..':sticker:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local voice = (redis:get(lana..':voice:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local audio = (redis:get(lana..':audio:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local animation = (redis:get(lana..':animation:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local edited = (redis:get(lana..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local video = (redis:get(lana..':video:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
 
 local Get_info ="👨🏽‍🔧│اهـلا بـك عزيزي في معلوماتك 🥀 \n"
 .."ـ.——————————\n"
@@ -1338,15 +1338,15 @@ end
 
 if MsgText[1] == "مسح معلوماتي" then
 GetUserID(msg.sender_user_id_,function(arg,data)
-local msgs = (redis:del(..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 0)
-local NumGha = (redis:del(..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local photo = (redis:del(..':photo:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local sticker = (redis:del(..':sticker:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local voice = (redis:del(..':voice:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local audio = (redis:del(..':audio:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local animation = (redis:del(..':animation:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local edited = (redis:del(..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-local video = (redis:del(..':video:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local msgs = (redis:del(lana..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 0)
+local NumGha = (redis:del(lana..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local photo = (redis:del(lana..':photo:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local sticker = (redis:del(lana..':sticker:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local voice = (redis:del(lana..':voice:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local audio = (redis:del(lana..':audio:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local animation = (redis:del(lana..':animation:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local edited = (redis:del(lana..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local video = (redis:del(lana..':video:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
 
 local Get_info ="🙋🏻‍♂│اهلن عزيزي تم حذف جميع معلوماتك "
 return sendMsg(msg.chat_id_,msg.id_,Get_info)    
@@ -1378,15 +1378,15 @@ end
 
 if MsgText[1] == "ضع الترحيب" then 
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-redis:set(..'welcom:witting'..msg.sender_user_id_,true) 
+redis:set(lana..'welcom:witting'..msg.sender_user_id_,true) 
 return "📭╿حسننا عزيزي  ✋🏿\n🗯│ارسل كليشه الترحيب الان\n\n🔖│ملاحظه تستطيع اضافه دوال للترحيب مثلا :\n🗒│اضهار قوانين المجموعه  » *{القوانين}*  \n📰│ اضهار الاسم العضو » *{الاسم}*\n🏷│اضهار المعرف العضو » *{المعرف}*\n🏷╽اضهار اسم المجموعه » *{المجموعه}*" 
 end
 
 
 if MsgText[1] == "الترحيب" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-if redis:get(..'welcome:msg'..msg.chat_id_)  then
-return Flter_Markdown(redis:get(..'welcome:msg'..msg.chat_id_))
+if redis:get(lana..'welcome:msg'..msg.chat_id_)  then
+return Flter_Markdown(redis:get(lana..'welcome:msg'..msg.chat_id_))
 else 
 return "🙋🏻‍♂*╿*أهلا عزيزي "..msg.TheRankCmd.."  \n🌿╽نورت المجموعه \n💂🏼‍♀️" 
 end 
@@ -1513,19 +1513,19 @@ end -- end of insert group
 
 if MsgText[1] == 'مسح' and MsgText[2] == 'المطورين'  then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-local mtwren = redis:scard(..':SUDO_BOT:')
+local mtwren = redis:scard(lana..':SUDO_BOT:')
 if mtwren == 0 then  return "⚙️*│* عذرا لا يوجد مطورين في البوت  ✖️" end
-redis:del(..':SUDO_BOT:') 
+redis:del(lana..':SUDO_BOT:') 
 return "📛*│* تم مسح {* "..mtwren.." *} من المطورين ☔️\n✓"
 end
 
 if MsgText[1] == 'مسح' and MsgText[2] == "قائمه العام"  then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-local addbannds = redis:scard(..'gban_users')
+local addbannds = redis:scard(lana..'gban_users')
 if addbannds ==0 then 
 return "*⚙️│قائمة الحظر فارغه .*" 
 end
-redis:del(..'gban_users') 
+redis:del(lana..'gban_users') 
 return "⚙️*│* تـم مـسـح { *"..addbannds.." *} من قائمه العام\n✓" 
 end 
 
@@ -1563,7 +1563,7 @@ end
 end
 
 if MsgText[1] == "تنظيف المجموعات" or MsgText[1] == "تنظيف المجموعات 🗑" then
-local groups = redis:smembers(..'group:ids')
+local groups = redis:smembers(lana..'group:ids')
 local GroupsIsFound = 0
 for i = 1, #groups do 
 GroupTitle(groups[i],function(arg,data)
@@ -1588,7 +1588,7 @@ end
 return false
 end
 if MsgText[1] == "تنظيف المشتركين 🗑" or MsgText[1] == "تنظيف المشتركين 🗑" then
-local pv = redis:smembers(..'users')
+local pv = redis:smembers(lana..'users')
 local NumPvDel = 0
 for i = 1, #pv do
 GroupTitle(pv[i],function(arg,data)
@@ -1597,7 +1597,7 @@ if data.ID and data.ID == "Ok"  then
 print("Sender Ok")
 else
 print("Failed Sender Nsot Ok")
-redis:srem(..'users',pv[i])
+redis:srem(lana..'users',pv[i])
 NumPvDel = NumPvDel + 1
 end
 if #pv == i then 
@@ -1614,7 +1614,7 @@ end
 return false
 end
 if MsgText[1] == "ضع صوره للترحيب" or MsgText[1]=="ضع صوره للترحيب 🌄" then
-redis:setex(..'welcom_ph:witting'..msg.sender_user_id_,300,true) 
+redis:setex(lana..'welcom_ph:witting'..msg.sender_user_id_,300,true) 
 return'📭╿حسننا عزيزي 🍁\n🌄 ╽الان قم بارسال الصوره للترحيب \n🛠' 
 end
 
@@ -1627,9 +1627,9 @@ return unlock_service(msg)
 end
 
 if MsgText[1] == "صوره الترحيب" then
-local Photo_Weloame = redis:get(..':WELCOME_BOT')
+local Photo_Weloame = redis:get(lana..':WELCOME_BOT')
 if Photo_Weloame then
-sendPhoto(msg.chat_id_,msg.id_,Photo_Weloame,[[⚜╿اهلا انآ بوت آسـمـي ]]..redis:get(..':NameBot:')..[[ ✓
+sendPhoto(msg.chat_id_,msg.id_,Photo_Weloame,[[⚜╿اهلا انآ بوت آسـمـي ]]..redis:get(lana..':NameBot:')..[[ ✓
 👨🏻‍✈️│آختصـآصـي حمـآيهہ‌‏ آلمـجمـوعآت
 📛╽مـن آلسـبآم وآلتوجيهہ‌‏ وآلتگرآر وآلخ...
 
@@ -1643,28 +1643,28 @@ end
 end
 
 if MsgText[1] == "ضع كليشه المطور" then 
-redis:setex(..'text_sudo:witting'..msg.sender_user_id_,1200,true) 
+redis:setex(lana..'text_sudo:witting'..msg.sender_user_id_,1200,true) 
 return '📭│حسننا عزيزي 🍁\n💬│الان قم بارسال الكليشه \n🛠' 
 end
 
 if MsgText[1] == "ضع شرط التفعيل" and MsgText[2] and MsgText[2]:match('^%d+$') then 
-redis:set(..':addnumberusers',MsgText[2]) 
+redis:set(lana..':addnumberusers',MsgText[2]) 
 return '💱*│* تم وضـع شـرط آلتفعيل آلبوت آذآ گآنت آلمـجمـوعهہ‏‏ آگثر مـن *【'..MsgText[2]..'】* عضـو  🍁\n' 
 end
 
 if MsgText[1] == "شرط التفعيل" then 
-return'🚸*│* شـرط آلتفعيل آلبوت آذآ گآنت آلمـجمـوعهہ‏‏ آگثر مـن *【'..redis:get(..':addnumberusers')..'】* عضـو  🍁\n' 
+return'🚸*│* شـرط آلتفعيل آلبوت آذآ گآنت آلمـجمـوعهہ‏‏ آگثر مـن *【'..redis:get(lana..':addnumberusers')..'】* عضـو  🍁\n' 
 end 
 end
 
 if MsgText[1] == 'المجموعات' or MsgText[1] == "المجموعات 🌋" then
 if not msg.SudoUser then return "♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-return '📮*│* عدد المجموعات المفعلة » `'..redis:scard(..'group:ids')..'`  ➼' 
+return '📮*│* عدد المجموعات المفعلة » `'..redis:scard(lana..'group:ids')..'`  ➼' 
 end
 
 if MsgText[1] == "المشتركين" or MsgText[1] == "المشتركين Ⓜ" then
 if not msg.SudoUser then return "♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-return '🙍🏻‍♂*│*عدد المشتركين في البوت : `'..redis:scard(..'users')..'` \n📡'
+return '🙍🏻‍♂*│*عدد المشتركين في البوت : `'..redis:scard(lana..'users')..'` \n📡'
 end
 
 if MsgText[1] == 'قائمه المجموعات' then 
@@ -1674,8 +1674,8 @@ end
 
 if MsgText[1] == 'تعطيل' and MsgText[2] and MsgText[2]:match("-100(%d+)") then
 if not msg.SudoUser then return "♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-if redis:sismember(..'group:ids',MsgText[2]) then
-local name_gp = redis:get(..'group:name'..MsgText[2])
+if redis:sismember(lana..'group:ids',MsgText[2]) then
+local name_gp = redis:get(lana..'group:name'..MsgText[2])
 sendMsg(MsgText[2],0,'📛*│* تم تعطيل المجموعه بأمر من المطور  \n🚸*│* سوف اغادر جاوو 🚶🏻🚶🏻 ...\n✘')
 rem_data_group(MsgText[2])
 StatusLeft(MsgText[2],our_id)
@@ -1686,42 +1686,42 @@ end
 end 
 
 if MsgText[1] == 'المطور' then
-return redis:get(..":TEXT_SUDO") or '🗃│لا توجد كليشه المطور .\n📰│يمكنك اضافه كليشه من خلال الامر\n       " `ضع كليشه المطور` " \n📡'
+return redis:get(lana..":TEXT_SUDO") or '🗃│لا توجد كليشه المطور .\n📰│يمكنك اضافه كليشه من خلال الامر\n       " `ضع كليشه المطور` " \n📡'
 end
 
 if MsgText[1] == "اذاعه عام بالتوجيه" or MsgText[1] == "اذاعه عام بالتوجيه 📣" then
 if not msg.SudoUser then return"♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-if not msg.SudoBase and not redis:get(..'lock_brod') then 
+if not msg.SudoBase and not redis:get(lana..'lock_brod') then 
 return "📡*│* الاذاعه مقفوله من قبل المطور الاساسي  🚶" 
 end
-redis:setex(..'fwd:'..msg.sender_user_id_,300, true) 
+redis:setex(lana..'fwd:'..msg.sender_user_id_,300, true) 
 return "📭│حسننا الان ارسل التوجيه للاذاعه \n🔛" 
 end
 
 if MsgText[1] == "اذاعه عام" or MsgText[1] == "اذاعه عام 📢" then		
 if not msg.SudoUser then return"♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-if not msg.SudoBase and not redis:get(..'lock_brod') then 
+if not msg.SudoBase and not redis:get(lana..'lock_brod') then 
 return "📡*│* الاذاعه مقفوله من قبل المطور الاساسي  🚶" 
 end
-redis:setex(..'fwd:all'..msg.sender_user_id_,300, true) 
+redis:setex(lana..'fwd:all'..msg.sender_user_id_,300, true) 
 return "📭│حسننا الان ارسل الكليشه للاذاعه عام \n🔛" 
 end
 
 if MsgText[1] == "اذاعه خاص" or MsgText[1] == "اذاعه خاص 🗣" then		
 if not msg.SudoUser then return "♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-if not msg.SudoBase and not redis:get(..'lock_brod') then 
+if not msg.SudoBase and not redis:get(lana..'lock_brod') then 
 return "📡*│* الاذاعه مقفوله من قبل المطور الاساسي  🚶" 
 end
-redis:setex(..'fwd:pv'..msg.sender_user_id_,300, true) 
+redis:setex(lana..'fwd:pv'..msg.sender_user_id_,300, true) 
 return "📭│حسننا الان ارسل الكليشه للاذاعه خاص \n🔛"
 end
 
 if MsgText[1] == "اذاعه" or MsgText[1] == "اذاعه 🗣" then		
 if not msg.SudoUser then return"♦️*│*هذا الامر يخص {المطور} فقط  \n💥" end
-if not msg.SudoBase and not redis:get(..'lock_brod') then 
+if not msg.SudoBase and not redis:get(lana..'lock_brod') then 
 return "📡*│* الاذاعه مقفوله من قبل المطور الاساسي  🚶" 
 end
-redis:setex(..'fwd:groups'..msg.sender_user_id_,300, true) 
+redis:setex(lana..'fwd:groups'..msg.sender_user_id_,300, true) 
 return "📭│حسننا الان ارسل الكليشه للاذاعه للمجموعات \n🔛" 
 end
 
@@ -1786,22 +1786,22 @@ if MsgText[1] == "رتبتي" then return '🎫*│* رتبتك ⇜ ❪ '..msg.T
 ----------------- استقبال الرسائل ---------------
 if MsgText[1] == "الغاء الامر ✖️" or MsgText[1] == "الغاء" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-redis:del(..'welcom:witting'..msg.sender_user_id_,
-..'rulse:witting'..msg.sender_user_id_,
-..'rulse:witting'..msg.sender_user_id_,
-..'name:witting'..msg.sender_user_id_,
-..'about:witting'..msg.sender_user_id_,
-..'fwd:all'..msg.sender_user_id_,
-..'fwd:pv'..msg.sender_user_id_,
-..'fwd:groups'..msg.sender_user_id_,
-..'namebot:witting'..msg.sender_user_id_,
-..'addrd_all:'..msg.sender_user_id_,
-..'delrd:'..msg.sender_user_id_,
-..'addrd:'..msg.sender_user_id_,
-..'delrdall:'..msg.sender_user_id_,
-..'text_sudo:witting'..msg.sender_user_id_,
-..'addrd:'..msg.chat_id_..msg.sender_user_id_,
-..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lana..'welcom:witting'..msg.sender_user_id_,
+lana..'rulse:witting'..msg.sender_user_id_,
+lana..'rulse:witting'..msg.sender_user_id_,
+lana..'name:witting'..msg.sender_user_id_,
+lana..'about:witting'..msg.sender_user_id_,
+lana..'fwd:all'..msg.sender_user_id_,
+lana..'fwd:pv'..msg.sender_user_id_,
+lana..'fwd:groups'..msg.sender_user_id_,
+lana..'namebot:witting'..msg.sender_user_id_,
+lana..'addrd_all:'..msg.sender_user_id_,
+lana..'delrd:'..msg.sender_user_id_,
+lana..'addrd:'..msg.sender_user_id_,
+lana..'delrdall:'..msg.sender_user_id_,
+lana..'text_sudo:witting'..msg.sender_user_id_,
+lana..'addrd:'..msg.chat_id_..msg.sender_user_id_,
+lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
 return '📬*│* تم آلغآء آلآمـر بنجآح \n🌿'
 end  
 
@@ -1812,11 +1812,11 @@ end
 
 if (MsgText[1] == 'تحديث السورس' or MsgText[1] == 'تحديث السورس 🔂') then
 if not msg.SudoBase then return "♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-local GetVerison = https.request('https://github.com/TELE/.github.io/GetVersion.txt') or 0
+local GetVerison = https.request('https://github.com/lanaTELE/lana.github.io/GetVersion.txt') or 0
 if GetVerison > version then
 UpdateSourceStart = true
 sendMsg(msg.chat_id_,msg.id_,'🔛*│* يوجد تحديث جديد الان \n📡*│* جاري تنزيل وتثبيت التحديث  ...')
-redis:set(..":VERSION",GetVerison)
+redis:set(lana..":VERSION",GetVerison)
 return false
 else
 return "🔖| الاصدار الحالي : *v"..version.."* \n👨🏾‍🔧*│* لديـك احدث اصدار \n📦"
@@ -1884,28 +1884,28 @@ end
 
 if (MsgText[1]== "الاحصائيات 💥" or MsgText[1]=="الاحصائيات") then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-return '🎭│الاحصائيات 🏌‍♂ \n\n👥*╿*عدد المجموعات المفعله : '..redis:scard(..'group:ids')..'\n🙍🏻‍♂*╽*عدد المشتركين في البوت : '..redis:scard(..'users')..'\n📡'
+return '🎭│الاحصائيات 🏌‍♂ \n\n👥*╿*عدد المجموعات المفعله : '..redis:scard(lana..'group:ids')..'\n🙍🏻‍♂*╽*عدد المشتركين في البوت : '..redis:scard(lana..'users')..'\n📡'
 end
 ---------------[End Function data] -----------------------
 if MsgText[1]=="اضف رد عام" or MsgText[1]=="اضف رد عام ➕" then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-redis:setex(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_,300,true)
-redis:del(..'allreplay:'..msg.chat_id_..msg.sender_user_id_)
+redis:setex(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_,300,true)
+redis:del(lana..'allreplay:'..msg.chat_id_..msg.sender_user_id_)
 return "📭│حسننا الان ارسل كلمة الرد العام 🍃\n"
 end
 
 if MsgText[1]== 'مسح' and MsgText[2]== 'الردود' then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-local names 	= redis:exists(..'replay:'..msg.chat_id_)
-local photo 	= redis:exists(..'replay_photo:group:'..msg.chat_id_)
-local voice 	= redis:exists(..'replay_voice:group:'..msg.chat_id_)
-local imation   = redis:exists(..'replay_animation:group:'..msg.chat_id_)
-local audio	 	= redis:exists(..'replay_audio:group:'..msg.chat_id_)
-local sticker 	= redis:exists(..'replay_sticker:group:'..msg.chat_id_)
-local video 	= redis:exists(..'replay_video:group:'..msg.chat_id_)
+local names 	= redis:exists(lana..'replay:'..msg.chat_id_)
+local photo 	= redis:exists(lana..'replay_photo:group:'..msg.chat_id_)
+local voice 	= redis:exists(lana..'replay_voice:group:'..msg.chat_id_)
+local imation   = redis:exists(lana..'replay_animation:group:'..msg.chat_id_)
+local audio	 	= redis:exists(lana..'replay_audio:group:'..msg.chat_id_)
+local sticker 	= redis:exists(lana..'replay_sticker:group:'..msg.chat_id_)
+local video 	= redis:exists(lana..'replay_video:group:'..msg.chat_id_)
 if names or photo or voice or imation or audio or sticker or video then
-redis:del(..'replay:'..msg.chat_id_,..'replay_photo:group:'..msg.chat_id_,..'replay_voice:group:'..msg.chat_id_,
-..'replay_animation:group:'..msg.chat_id_,..'replay_audio:group:'..msg.chat_id_,..'replay_sticker:group:'..msg.chat_id_,..'replay_video:group:'..msg.chat_id_)
+redis:del(lana..'replay:'..msg.chat_id_,lana..'replay_photo:group:'..msg.chat_id_,lana..'replay_voice:group:'..msg.chat_id_,
+lana..'replay_animation:group:'..msg.chat_id_,lana..'replay_audio:group:'..msg.chat_id_,lana..'replay_sticker:group:'..msg.chat_id_,lana..'replay_video:group:'..msg.chat_id_)
 return "✓ تم مسح كل الردود 🚀"
 else
 return '🚸*│* لا يوجد ردود ليتم مسحها \n💥'
@@ -1914,15 +1914,15 @@ end
 
 if MsgText[1]== 'مسح' and MsgText[2]== 'الردود العامه' then
 if not msg.SudoBase then return"♨️ للمطورين فقط ! 💯" end
-local names 	= redis:exists(..'replay:all')
-local photo 	= redis:exists(..'replay_photo:group:')
-local voice 	= redis:exists(..'replay_voice:group:')
-local imation 	= redis:exists(..'replay_animation:group:')
-local audio 	= redis:exists(..'replay_audio:group:')
-local sticker 	= redis:exists(..'replay_sticker:group:')
-local video 	= redis:exists(..'replay_video:group:')
+local names 	= redis:exists(lana..'replay:all')
+local photo 	= redis:exists(lana..'replay_photo:group:')
+local voice 	= redis:exists(lana..'replay_voice:group:')
+local imation 	= redis:exists(lana..'replay_animation:group:')
+local audio 	= redis:exists(lana..'replay_audio:group:')
+local sticker 	= redis:exists(lana..'replay_sticker:group:')
+local video 	= redis:exists(lana..'replay_video:group:')
 if names or photo or voice or imation or audio or sticker or video then
-redis:del(..'replay:all',..'replay_photo:group:',..'replay_voice:group:',..'replay_animation:group:',..'replay_audio:group:',..'replay_sticker:group:',..'replay_video:group:')
+redis:del(lana..'replay:all',lana..'replay_photo:group:',lana..'replay_voice:group:',lana..'replay_animation:group:',lana..'replay_audio:group:',lana..'replay_sticker:group:',lana..'replay_video:group:')
 return "✓ تم مسح كل الردود العامه🚀"
 else
 return "لا يوجد ردود عامه ليتم مسحها ! 🚀"
@@ -1931,25 +1931,25 @@ end
 
 if MsgText[1]== 'مسح' and MsgText[2]== 'رد عام' then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-redis:set(..'delrdall:'..msg.sender_user_id_,true) 
+redis:set(lana..'delrdall:'..msg.sender_user_id_,true) 
 return "📭│حسننا عزيزي  ✋🏿\n🗯│الان ارسل الرد لمسحها من  المجموعات 🍃"
 end
 
 if MsgText[1]== 'مسح' and MsgText[2]== 'رد' then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-redis:set(..'delrd:'..msg.sender_user_id_,true)
+redis:set(lana..'delrd:'..msg.sender_user_id_,true)
 return "📭╿حسننا عزيزي  ✋🏿\n🗯╽الان ارسل الرد لمسحها من  للمجموعه 🍃"
 end
 
 if MsgText[1]== 'الردود' then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-local names  	= redis:hkeys(..'replay:'..msg.chat_id_)
-local photo 	= redis:hkeys(..'replay_photo:group:'..msg.chat_id_)
-local voice  	= redis:hkeys(..'replay_voice:group:'..msg.chat_id_)
-local imation 	= redis:hkeys(..'replay_animation:group:'..msg.chat_id_)
-local audio 	= redis:hkeys(..'replay_audio:group:'..msg.chat_id_)
-local sticker 	= redis:hkeys(..'replay_sticker:group:'..msg.chat_id_)
-local video 	= redis:hkeys(..'replay_video:group:'..msg.chat_id_)
+local names  	= redis:hkeys(lana..'replay:'..msg.chat_id_)
+local photo 	= redis:hkeys(lana..'replay_photo:group:'..msg.chat_id_)
+local voice  	= redis:hkeys(lana..'replay_voice:group:'..msg.chat_id_)
+local imation 	= redis:hkeys(lana..'replay_animation:group:'..msg.chat_id_)
+local audio 	= redis:hkeys(lana..'replay_audio:group:'..msg.chat_id_)
+local sticker 	= redis:hkeys(lana..'replay_sticker:group:'..msg.chat_id_)
+local video 	= redis:hkeys(lana..'replay_video:group:'..msg.chat_id_)
 if #names==0 and #photo==0 and #voice==0 and #imation==0 and #audio==0 and #sticker==0 and #video==0 then 
 return '🚸*│*لا يوجد ردود مضافه حاليا \n💥' 
 end
@@ -1967,13 +1967,13 @@ end
 
 if MsgText[1]== 'الردود العامه' or MsgText[1]=='الردود العامه 🗨' then
 if not msg.SudoBase then return "♨️ للمطور فقط ! 💯" end
-local names 	= redis:hkeys(..'replay:all')
-local photo 	= redis:hkeys(..'replay_photo:group:')
-local voice 	= redis:hkeys(..'replay_voice:group:')
-local imation 	= redis:hkeys(..'replay_animation:group:')
-local audio 	= redis:hkeys(..'replay_audio:group:')
-local sticker 	= redis:hkeys(..'replay_sticker:group:')
-local video 	= redis:hkeys(..'replay_video:group:')
+local names 	= redis:hkeys(lana..'replay:all')
+local photo 	= redis:hkeys(lana..'replay_photo:group:')
+local voice 	= redis:hkeys(lana..'replay_voice:group:')
+local imation 	= redis:hkeys(lana..'replay_animation:group:')
+local audio 	= redis:hkeys(lana..'replay_audio:group:')
+local sticker 	= redis:hkeys(lana..'replay_sticker:group:')
+local video 	= redis:hkeys(lana..'replay_video:group:')
 if #names==0 and #photo==0 and #voice==0 and #imation==0 and #audio==0 and #sticker==0 and #video==0 then 
 return '🚸*│*لا يوجد ردود مضافه حاليا \n💥' 
 end
@@ -1992,14 +1992,14 @@ end
 
 if MsgText[1]=="اضف رد" and msg.GroupActive then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
-redis:setex(..'addrd:'..msg.chat_id_..msg.sender_user_id_,300,true) 
-redis:del(..'replay1'..msg.chat_id_..msg.sender_user_id_)
+redis:setex(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_,300,true) 
+redis:del(lana..'replay1'..msg.chat_id_..msg.sender_user_id_)
 return "📭│حسننا , الان ارسل كلمه الرد \n-"
 end
 
 if MsgText[1] == "ضع اسم للبوت" or MsgText[1]== 'ضع اسم للبوت ©' then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-redis:setex(..'namebot:witting'..msg.sender_user_id_,300,true)
+redis:setex(lana..'namebot:witting'..msg.sender_user_id_,300,true)
 return"📭╿حسننا عزيزي  ✋🏿\n🗯╽الان ارسل الاسم  للبوت 🍃"
 end
 
@@ -2298,30 +2298,30 @@ end
 
 if MsgText[1] == "تفعيل" and MsgText[2] == "اطردني"  then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-if not redis:get(..'lave_me'..msg.chat_id_) then 
+if not redis:get(lana..'lave_me'..msg.chat_id_) then 
 return "🙋🏻‍♂*│*أهلا عزيزي "..msg.TheRankCmd.."\n📡*│* المغادره بالتاكيد تم تفعيلها\n✓" 
 else 
-redis:del(..'lave_me'..msg.chat_id_) 
+redis:del(lana..'lave_me'..msg.chat_id_) 
 return "🙋🏻‍♂*│*أهلا عزيزي "..msg.TheRankCmd.."\n📡*│* تم تفعيل المغادره \n✓" 
 end 
 end
 if MsgText[1] == "تعطيل" and MsgText[2] == "اطردني" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
-if redis:get(..'lave_me'..msg.chat_id_) then 
+if redis:get(lana..'lave_me'..msg.chat_id_) then 
 return "🙋🏻‍♂*│*أهلا عزيزي "..msg.TheRankCmd.."\n📡*│* المغادره من قبل البوت بالتأكيد معطله\n✓" 
 else
-redis:set(..'lave_me'..msg.chat_id_,true)  
+redis:set(lana..'lave_me'..msg.chat_id_,true)  
 return "🙋🏻‍♂*│*أهلا عزيزي "..msg.TheRankCmd.."\n📡*│* تم تعطيل المغادره من قبل البوت\n✓" 
 end   
 end
 
 if MsgText[1] == "اطردني" or MsgText[1] == "احظرني" then
-if not redis:get(..'lave_me'..msg.chat_id_) then
+if not redis:get(lana..'lave_me'..msg.chat_id_) then
 if msg.Admin then return "♦️*│*لا استطيع طرد المدراء والادمنيه والمنشئين  \n💥" end
 kick_user(msg.sender_user_id_,msg.chat_id_,function(arg,data)
 if data.ID == "Ok" then
 StatusLeft(msg.chat_id_,msg.sender_user_id_)
-send_msg(msg.sender_user_id_,"👨🏼‍⚕️| اهلا عزيزي , لقد تم طردك من المجموعه بامر منك \n🔖| اذا كان هذا بالخطأ او اردت الرجوع للمجموعه \n\n🔖│فهذا رابط المجموعه 💯\n🌿│"..Flter_Markdown(redis:get(..'group:name'..msg.chat_id_)).." :\n\n["..redis:get(..'linkGroup'..msg.chat_id_).."]\n")
+send_msg(msg.sender_user_id_,"👨🏼‍⚕️| اهلا عزيزي , لقد تم طردك من المجموعه بامر منك \n🔖| اذا كان هذا بالخطأ او اردت الرجوع للمجموعه \n\n🔖│فهذا رابط المجموعه 💯\n🌿│"..Flter_Markdown(redis:get(lana..'group:name'..msg.chat_id_)).." :\n\n["..redis:get(lana..'linkGroup'..msg.chat_id_).."]\n")
 sendMsg(msg.chat_id_,msg.id_,"🚸| لقد تم طردك بنجاح , ارسلت لك رابط المجموعه في الخاص اذا وصلت لك تستطيع الرجوع متى شئت ")
 else
 sendMsg(msg.chat_id_,msg.id_,"🚸| لا استطيع طردك لانك مشرف في المجموعه  ")
@@ -2356,29 +2356,29 @@ return "➖\n📆| الـتـاريـخ : "..os.date("%Y/%m/%d")
 end
 
 if MsgText[1]== "سحكاتي" then
-return '🚸*│*عدد سحہكآتگ ⇜ ❪ '..(redis:get(..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)..' ❫ \n🐾'
+return '🚸*│*عدد سحہكآتگ ⇜ ❪ '..(redis:get(lana..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)..' ❫ \n🐾'
 end
 
 if MsgText[1] == 'مسح' and MsgText[2] == 'سحكاتي'  then
-local rfih = (redis:get(..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local rfih = (redis:get(lana..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
 if rfih == 0 then  return "⚠️*│*عذرا لا يوجد سحكات لك في البوت  ✖️" end
-redis:del(..':edited:'..msg.chat_id_..':'..msg.sender_user_id_)
+redis:del(lana..':edited:'..msg.chat_id_..':'..msg.sender_user_id_)
 return "♦️*│*تم مسح {* "..rfih.." *} من سحكاتك ☔️\n✓"
 end
 
 if MsgText[1] == "تفعيل الاشتراك الاجباري" or MsgText[1] == "تفعيل الاشتراك الاجباري ☑" then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-if redis:get(..":UserNameChaneel") then
+if redis:get(lana..":UserNameChaneel") then
 return "📑│اهلا عزيزي المطور \n🔖│الاشتراك بالتأكيد مفعل"
 else
-redis:setex(..":ForceSub:"..msg.sender_user_id_,350,true)
+redis:setex(lana..":ForceSub:"..msg.sender_user_id_,350,true)
 return "📑│مرحبا بـك في نظام الاشتراك الاجباري\n🔖│الان ارسل معرف قـنـاتـك"
 end
 end
 
 if MsgText[1] == "تعطيل الاشتراك الاجباري" or MsgText[1] == "تعطيل الاشتراك الاجباري ♻️" then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-local SubDel = redis:del(..":UserNameChaneel")
+local SubDel = redis:del(lana..":UserNameChaneel")
 if SubDel == 1 then
 return "🔖│تم تعطيل الاشتراك الاجباري . \n✓"
 else
@@ -2388,7 +2388,7 @@ end
 
 if MsgText[1] == "الاشتراك الاجباري" or MsgText[1] == "الاشتراك الاجباري ⚠️" then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-local UserChaneel = redis:get(..":UserNameChaneel")
+local UserChaneel = redis:get(lana..":UserNameChaneel")
 if UserChaneel then
 return "🔖│اهلا عزيزي المطور \n🔖│الاشتراك الاجباري للقناة : ["..UserChaneel.."]\n✓"
 else
@@ -2398,7 +2398,7 @@ end
 
 if MsgText[1] == "تغيير الاشتراك الاجباري" or MsgText[1] == "تغيير الاشتراك الاجباري 🔁" then
 if not msg.SudoBase then return"♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-redis:setex(..":ForceSub:"..msg.sender_user_id_,350,true)
+redis:setex(lana..":ForceSub:"..msg.sender_user_id_,350,true)
 return "📑│مرحبا بـك في نظام الاشتراك الاجباري\n🔖│الان ارسل معرف قـنـاتـك"
 end
 
@@ -2408,7 +2408,7 @@ end
 
 end
 
-local function d(msg)
+local function dlana(msg)
 
 local Text = msg.text
 if Text then
@@ -2442,9 +2442,9 @@ tdcli_function ({ID = "GetMessage",chat_id_=msg.chat_id_,message_id_=tonumber(ms
 end
 
 if Text == 'tophoto' or Text == 'صوره' and tonumber(msg.reply_to_message_id_) > 0 and KaraJoinChannel(msg) then
-function tophoto(kara,)   
-if .content_.ID == "MessageSticker" then        
-local bd = .content_.sticker_.sticker_.path_          
+function tophoto(kara,lana)   
+if lana.content_.ID == "MessageSticker" then        
+local bd = lana.content_.sticker_.sticker_.path_          
 sendPhoto(msg.chat_id_,msg.id_,bd,'')
 else
 sendMsg(msg.chat_id_,msg.id_,'🙋🏻‍♂╿عزيزي المستخدم👨🏻‍✈️ \n📌╽الامر فقط للملصق\n✓')
@@ -2463,12 +2463,12 @@ end
 if msg.type == "pv" then 
 
 if not msg.SudoUser then
-local msg_pv = tonumber(redis:get(..'user:'..msg.sender_user_id_..':msgs') or 0)
+local msg_pv = tonumber(redis:get(lana..'user:'..msg.sender_user_id_..':msgs') or 0)
 if msg_pv > 5 then
-redis:setex(..':mute_pv:'..msg.sender_user_id_,18000,true)   
+redis:setex(lana..':mute_pv:'..msg.sender_user_id_,18000,true)   
 return sendMsg(msg.chat_id_,0,'*📛│* تم حظرك من البوت بسبب التكرار \n🛠') 
 end
-redis:setex(..'user:'..msg.sender_user_id_..':msgs',2,msg_pv+1)
+redis:setex(lana..'user:'..msg.sender_user_id_..':msgs',2,msg_pv+1)
 end
 
 if msg.text=="/start" then
@@ -2493,9 +2493,9 @@ local keyboard = {
  {"الغاء الامر ✖️"}}
 return send_key(msg.sender_user_id_,text,keyboard,nil,msg.id_)
 else
-redis:sadd(..'users',msg.sender_user_id_)
-if redis:get(..'lock_service') then 
-text = [[🤖╿آهلا انآ بــــوت آســمـي   []]..redis:get(..':NameBot:')..[[] 🗽
+redis:sadd(lana..'users',msg.sender_user_id_)
+if redis:get(lana..'lock_service') then 
+text = [[🤖╿آهلا انآ بــــوت آســمـي   []]..redis:get(lana..':NameBot:')..[[] 🗽
 ⛓│ آختـصاصـي حمايـه آلمجـموعـات ..
 🛡│ مـن آلسـبآم وآلتوجيه وآلتكرآر وآلخ
 🚸╽ لتفعيل آلبوت آتبــع الشـروط ❕
@@ -2507,7 +2507,7 @@ text = [[🤖╿آهلا انآ بــــوت آســمـي   []]..redis:get(.
  ⚖│مـعـرف الـمـطـــور ↫ ]]..SUDO_USER..[[
 ]]
 else
-text = [[🤖╿آهلا انآ بــــوت آســمـي   []]..redis:get(..':NameBot:')..[[] 🗽
+text = [[🤖╿آهلا انآ بــــوت آســمـي   []]..redis:get(lana..':NameBot:')..[[] 🗽
 ⛓│ آختـصاصـي حمايـه آلمجـموعـات ..
 🛡│ مـن آلسـبآم وآلتوجيه وآلتكرآر وآلخ
 🚸╽ لتفعيل آلبوت آتبــع الشـروط ❕
@@ -2534,7 +2534,7 @@ if datainfo.forward_info_ then
 local FwdUser = datainfo.forward_info_.sender_user_id_
 local FwdDate = datainfo.forward_info_.date_
 GetUserID(FwdUser,function(arg,data)
-local MSG_ID = (redis:get(.."USER_MSG_TWASEL"..FwdDate) or 1)
+local MSG_ID = (redis:get(lana.."USER_MSG_TWASEL"..FwdDate) or 1)
 if msg.text then
 sendMsg(FwdUser,MSG_ID,Flter_Markdown(msg.text))
 elseif msg.sticker then
@@ -2565,12 +2565,12 @@ end
 end,nil)
 end 
 else
-if not redis:get(..'lock_twasel') then
+if not redis:get(lana..'lock_twasel') then
 if msg.forward_info_ or msg.sticker or msg.content_.ID == "MessageUnsupported" then
 sendMsg(msg.chat_id_,msg.id_,"♦️│عذرآ لآ يمـگنگ آرسـآل { توجيهہ‌‏ , مـلصـق , فديو گآم} ❗️")
 return false
 end
-redis:setex(.."USER_MSG_TWASEL"..msg.date_,43200,msg.id_)
+redis:setex(lana.."USER_MSG_TWASEL"..msg.date_,43200,msg.id_)
 sendMsg(msg.chat_id_,msg.id_,"🗯│تم آرسـآل رسـآلتگ آلى آلمـطـور\n📬│سـآرد عليگ في آقرب وقت\n👨‍✈️│معرف المطور "..SUDO_USER)
 tdcli_function({ID='GetChat',chat_id_ = SUDO_ID},function(arg,data)
 fwdMsg(SUDO_ID,msg.chat_id_,msg.id_)
@@ -2581,70 +2581,70 @@ end
 end
 
 --====================== Reply Only Group ====================================
-if redis:get(..'addrd:'..msg.chat_id_..msg.sender_user_id_) and redis:get(..'replay1'..msg.chat_id_..msg.sender_user_id_) then
-local klma = redis:get(..'replay1'..msg.chat_id_..msg.sender_user_id_)
+if redis:get(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_) and redis:get(lana..'replay1'..msg.chat_id_..msg.sender_user_id_) then
+local klma = redis:get(lana..'replay1'..msg.chat_id_..msg.sender_user_id_)
 if msg.text then 
-redis:hset(..'replay:'..msg.chat_id_,klma,Flter_Markdown(msg.text))
-redis:del(..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay:'..msg.chat_id_,klma,Flter_Markdown(msg.text))
+redis:del(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'(['..klma..'])\n  ✓ تم اضافت الرد 🚀 \n-')
 elseif msg.photo then 
-redis:hset(..'replay_photo:group:'..msg.chat_id_,klma,photo_id)
-redis:del(..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_photo:group:'..msg.chat_id_,klma,photo_id)
+redis:del(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه صوره للرد بنجاح ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الصوره الاتيه ')
 elseif msg.voice then
-redis:hset(..'replay_voice:group:'..msg.chat_id_,klma,voice_id)
-redis:del(..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_voice:group:'..msg.chat_id_,klma,voice_id)
+redis:del(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه بصمه صوت للرد بنجاح ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لسماع البصمه الاتيه ')
 elseif msg.animation then
-redis:hset(..'replay_animation:group:'..msg.chat_id_,klma,animation_id)
-redis:del(..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_animation:group:'..msg.chat_id_,klma,animation_id)
+redis:del(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه متحركه للرد بنجاح ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الصوره الاتيه ')
 elseif msg.video then
-redis:hset(..'replay_video:group:'..msg.chat_id_,klma,video_id)
-redis:del(..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_video:group:'..msg.chat_id_,klma,video_id)
+redis:del(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه فيديو للرد بنجاح ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الفيديو الاتي ')
 elseif msg.audio then
-redis:hset(..'replay_audio:group:'..msg.chat_id_,klma,audio_id)
-redis:del(..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_audio:group:'..msg.chat_id_,klma,audio_id)
+redis:del(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه للصوت للرد بنجاح ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الصوت الاتي ')
 elseif msg.sticker then
-redis:hset(..'replay_sticker:group:'..msg.chat_id_,klma,sticker_id)
-redis:del(..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_sticker:group:'..msg.chat_id_,klma,sticker_id)
+redis:del(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه ملصق للرد بنجاح ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الملصق الاتي ')
 end  
 
 end
 
 --====================== Reply All Groups =====================================
-if redis:get(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) and redis:get(..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then
-local klma = redis:get(..'allreplay:'..msg.chat_id_..msg.sender_user_id_)
+if redis:get(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) and redis:get(lana..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then
+local klma = redis:get(lana..'allreplay:'..msg.chat_id_..msg.sender_user_id_)
 if msg.text then
-redis:hset(..'replay:all',klma,Flter_Markdown(msg.text))
-redis:del(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay:all',klma,Flter_Markdown(msg.text))
+redis:del(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'(['..klma..'])\n  ✓ تم اضافت الرد لكل المجموعات 🚀 ')
 elseif msg.photo then 
-redis:hset(..'replay_photo:group:',klma,photo_id)
-redis:del(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_photo:group:',klma,photo_id)
+redis:del(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه صوره للرد العام ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الصوره الاتيه ')
 elseif msg.voice then
-redis:hset(..'replay_voice:group:',klma,voice_id)
-redis:del(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_voice:group:',klma,voice_id)
+redis:del(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه بصمه صوت للرد العام ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لسماع البصمه الاتيه ')
 elseif msg.animation then
-redis:hset(..'replay_animation:group:',klma,animation_id)
-redis:del(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_animation:group:',klma,animation_id)
+redis:del(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه متحركه للرد العام ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الصوره الاتيه ')
 elseif msg.video then
-redis:hset(..'replay_video:group:',klma,video_id)
-redis:del(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_video:group:',klma,video_id)
+redis:del(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه فيديو للرد العام ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵لاضهار الفيديو الاتي ')
 elseif msg.audio then
-redis:hset(..'replay_audio:group:',klma,audio_id)
-redis:del(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_audio:group:',klma,audio_id)
+redis:del(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه للصوت للرد العام ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الصوت الاتي ')
 elseif msg.sticker then
-redis:hset(..'replay_sticker:group:',klma,sticker_id)
-redis:del(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lana..'replay_sticker:group:',klma,sticker_id)
+redis:del(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂│تم اضافه ملصق للرد العام ✓\n🗂│يمكنك ارسال ❴ ['..klma..'] ❵ لاضهار الملصق الاتي ')
 end  
 
@@ -2652,9 +2652,9 @@ end
 
 if msg.text then
 --====================== Requst UserName Of Channel For ForceSub ==============
-if redis:get(..":ForceSub:"..msg.sender_user_id_) then
+if redis:get(lana..":ForceSub:"..msg.sender_user_id_) then
 if msg.text:match("^@[%a%d_]+$") then
-redis:del(..":ForceSub:"..msg.sender_user_id_)
+redis:del(lana..":ForceSub:"..msg.sender_user_id_)
 local url , res = https.request(ApiToken..'/getchatmember?chat_id='..msg.text..'&user_id='..msg.sender_user_id_)
 if res == 400 then
 local Req = JSON.decode(url)
@@ -2666,7 +2666,7 @@ sendMsg(msg.chat_id_,msg.id_,"📑│عذرا , لقد نسيت شيئا \n🔖�
 return false
 end
 else
-redis:set(..":UserNameChaneel",msg.text)
+redis:set(lana..":UserNameChaneel",msg.text)
 sendMsg(msg.chat_id_,msg.id_,"🔖│جـيـد , الان لقد تم تفعيل الاشتراك الاجباري\n📮│على قناتك ⇜ ["..msg.text.."]")
 return false
 end
@@ -2676,77 +2676,77 @@ return false
 end
 end
 
-if redis:get(..'namebot:witting'..msg.sender_user_id_) then --- استقبال اسم البوت 
-redis:del(..'namebot:witting'..msg.sender_user_id_)
-redis:set(..':NameBot:',msg.text)
+if redis:get(lana..'namebot:witting'..msg.sender_user_id_) then --- استقبال اسم البوت 
+redis:del(lana..'namebot:witting'..msg.sender_user_id_)
+redis:set(lana..':NameBot:',msg.text)
 Start_Bot() 
 sendMsg(msg.chat_id_,msg.id_,"📭│تم تغير اسم البوت  ✋🏿\n🗯│الان اسمه "..Flter_Markdown(msg.text).." \n✓")
 return false
 end
 
-if redis:get(..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد لكل المجموعات
-if not redis:get(..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال كلمه الرد لكل المجموعات
-redis:hdel(..'replay_photo:group:',msg.text)
-redis:hdel(..'replay_voice:group:',msg.text)
-redis:hdel(..'replay_animation:group:',msg.text)
-redis:hdel(..'replay_audio:group:',msg.text)
-redis:hdel(..'replay_sticker:group:',msg.text)
-redis:hdel(..'replay_video:group:',msg.text)
-redis:setex(..'allreplay:'..msg.chat_id_..msg.sender_user_id_,300,msg.text)
+if redis:get(lana..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد لكل المجموعات
+if not redis:get(lana..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال كلمه الرد لكل المجموعات
+redis:hdel(lana..'replay_photo:group:',msg.text)
+redis:hdel(lana..'replay_voice:group:',msg.text)
+redis:hdel(lana..'replay_animation:group:',msg.text)
+redis:hdel(lana..'replay_audio:group:',msg.text)
+redis:hdel(lana..'replay_sticker:group:',msg.text)
+redis:hdel(lana..'replay_video:group:',msg.text)
+redis:setex(lana..'allreplay:'..msg.chat_id_..msg.sender_user_id_,300,msg.text)
 return sendMsg(msg.chat_id_,msg.id_,"📜│جيد , يمكنك الان ارسال جوا ب الردالعام \n🔛│[[ نص,صوره,فيديو,متحركه,بصمه,اغنيه ]]\n✓")
 end
 end
 
-if redis:get(..'delrdall:'..msg.sender_user_id_) then
-redis:del(..'delrdall:'..msg.sender_user_id_)
-local names = redis:hget(..'replay:all',msg.text)
-local photo =redis:hget(..'replay_photo:group:',msg.text)
-local voice = redis:hget(..'replay_voice:group:',msg.text)
-local animation = redis:hget(..'replay_animation:group:',msg.text)
-local audio = redis:hget(..'replay_audio:group:',msg.text)
-local sticker = redis:hget(..'replay_sticker:group:',msg.text)
-local video = redis:hget(..'replay_video:group:',msg.text)
+if redis:get(lana..'delrdall:'..msg.sender_user_id_) then
+redis:del(lana..'delrdall:'..msg.sender_user_id_)
+local names = redis:hget(lana..'replay:all',msg.text)
+local photo =redis:hget(lana..'replay_photo:group:',msg.text)
+local voice = redis:hget(lana..'replay_voice:group:',msg.text)
+local animation = redis:hget(lana..'replay_animation:group:',msg.text)
+local audio = redis:hget(lana..'replay_audio:group:',msg.text)
+local sticker = redis:hget(lana..'replay_sticker:group:',msg.text)
+local video = redis:hget(lana..'replay_video:group:',msg.text)
 if not (names or photo or voice or animation or audio or sticker or video) then
 return sendMsg(msg.chat_id_,msg.id_,'💬*│*هذا الرد ليس مضاف في قائمه الردود 📛')
 else
-redis:hdel(..'replay:all',msg.text)
-redis:hdel(..'replay_photo:group:',msg.text)
-redis:hdel(..'replay_voice:group:',msg.text)
-redis:hdel(..'replay_audio:group:',msg.text)
-redis:hdel(..'replay_animation:group:',msg.text)
-redis:hdel(..'replay_sticker:group:',msg.text)
-redis:hdel(..'replay_video:group:',msg.text)
+redis:hdel(lana..'replay:all',msg.text)
+redis:hdel(lana..'replay_photo:group:',msg.text)
+redis:hdel(lana..'replay_voice:group:',msg.text)
+redis:hdel(lana..'replay_audio:group:',msg.text)
+redis:hdel(lana..'replay_animation:group:',msg.text)
+redis:hdel(lana..'replay_sticker:group:',msg.text)
+redis:hdel(lana..'replay_video:group:',msg.text)
 return sendMsg(msg.chat_id_,msg.id_,'('..Flter_Markdown(msg.text)..')\n  ✓ تم مسح الرد 🚀 ')
 end 
 end 
 
 
-if redis:get(..'text_sudo:witting'..msg.sender_user_id_) then -- استقبال كليشه المطور
-redis:del(..'text_sudo:witting'..msg.sender_user_id_) 
-redis:set(..':TEXT_SUDO',Flter_Markdown(msg.text))
+if redis:get(lana..'text_sudo:witting'..msg.sender_user_id_) then -- استقبال كليشه المطور
+redis:del(lana..'text_sudo:witting'..msg.sender_user_id_) 
+redis:set(lana..':TEXT_SUDO',Flter_Markdown(msg.text))
 return sendMsg(msg.chat_id_,msg.id_, "📜*│* تم وضع الكليشه بنجاح كلاتي 👋🏻\n\n*{*  "..Flter_Markdown(msg.text).."  *}*\n✓")
 end
-if redis:get(..'welcom:witting'..msg.sender_user_id_) then -- استقبال كليشه الترحيب
-redis:del(..'welcom:witting'..msg.sender_user_id_) 
-redis:set(..'welcome:msg'..msg.chat_id_,msg.text)
+if redis:get(lana..'welcom:witting'..msg.sender_user_id_) then -- استقبال كليشه الترحيب
+redis:del(lana..'welcom:witting'..msg.sender_user_id_) 
+redis:set(lana..'welcome:msg'..msg.chat_id_,msg.text)
 return sendMsg(msg.chat_id_,msg.id_,"📜*│* تم وضع الترحيب بنجاح كلاتي 👋\n✓" )
 end
-if redis:get(..'rulse:witting'..msg.sender_user_id_) then --- استقبال القوانين
-redis:del(..'rulse:witting'..msg.sender_user_id_) 
-redis:set(..'rulse:msg'..msg.chat_id_,Flter_Markdown(msg.text)) 
+if redis:get(lana..'rulse:witting'..msg.sender_user_id_) then --- استقبال القوانين
+redis:del(lana..'rulse:witting'..msg.sender_user_id_) 
+redis:set(lana..'rulse:msg'..msg.chat_id_,Flter_Markdown(msg.text)) 
 return sendMsg(msg.chat_id_,msg.id_,'📜*│* مرحبآ عزيزي\n📦│تم حفظ القوانين بنجاح ✓\n🔖│ارسل [[ القوانين ]] لعرضها \n💬✓')
 end
-if redis:get(..'name:witting'..msg.sender_user_id_) then --- استقبال الاسم
-redis:del(..'name:witting'..msg.sender_user_id_) 
+if redis:get(lana..'name:witting'..msg.sender_user_id_) then --- استقبال الاسم
+redis:del(lana..'name:witting'..msg.sender_user_id_) 
 tdcli_function({ID= "ChangeChatTitle",chat_id_=msg.chat_id_,title_=msg.text},dl_cb,nil)
 end
-if redis:get(..'linkGroup'..msg.sender_user_id_,link) then --- استقبال الرابط
-redis:del(..'linkGroup'..msg.sender_user_id_,link) 
-redis:set(..'linkGroup'..msg.chat_id_,Flter_Markdown(msg.text)) 
+if redis:get(lana..'linkGroup'..msg.sender_user_id_,link) then --- استقبال الرابط
+redis:del(lana..'linkGroup'..msg.sender_user_id_,link) 
+redis:set(lana..'linkGroup'..msg.chat_id_,Flter_Markdown(msg.text)) 
 return sendMsg(msg.chat_id_,msg.id_,'🖇│تم وضع الرابط الجديد بنجاح .. 🍂')
 end
-if redis:get(..'about:witting'..msg.sender_user_id_) then --- استقبال الوصف
-redis:del(..'about:witting'..msg.sender_user_id_) 
+if redis:get(lana..'about:witting'..msg.sender_user_id_) then --- استقبال الوصف
+redis:del(lana..'about:witting'..msg.sender_user_id_) 
 tdcli_function({ID="ChangeChannelAbout",channel_id_=msg.chat_id_:gsub('-100',''),about_ = msg.text},function(arg,data) 
 if data.ID == "Ok" then 
 return sendMsg(msg.chat_id_,msg.id_,"📜*│* تم وضع الوصف بنجاح\n✓")
@@ -2755,10 +2755,10 @@ end,nil)
 end
 
 
-if redis:get(..'fwd:all'..msg.sender_user_id_) then ---- استقبال رساله الاذاعه عام
-redis:del(..'fwd:all'..msg.sender_user_id_)
-local pv = redis:smembers(..'users')  
-local groups = redis:smembers(..'group:ids')
+if redis:get(lana..'fwd:all'..msg.sender_user_id_) then ---- استقبال رساله الاذاعه عام
+redis:del(lana..'fwd:all'..msg.sender_user_id_)
+local pv = redis:smembers(lana..'users')  
+local groups = redis:smembers(lana..'group:ids')
 local allgp =  #pv + #groups
 if allgp >= 300 then
 sendMsg(msg.chat_id_,msg.id_,'📑│اهلا عزيزي المطور \n🔖│جاري نشر التوجيه للمجموعات وللمشتركين ...')			
@@ -2769,7 +2769,7 @@ if data.send_state_ and data.send_state_.ID == "MessageIsBeingSent"  then
 print("Sender Ok")
 else
 print("Rem user From list")
-redis:srem(..'users',pv[i])
+redis:srem(lana..'users',pv[i])
 end
 end)
 end
@@ -2786,9 +2786,9 @@ end
 return sendMsg(msg.chat_id_,msg.id_,'📜*│*تم اذاعه الكليشه بنجاح 🏌🏻\n🗣*│*للمـجمـوعآت » ❴ *'..#groups..'* ❵ گروب \n👥*│* للمـشـترگين » ❴ '..#pv..' ❵ مـشـترگ \n✓')
 end
 
-if redis:get(..'fwd:pv'..msg.sender_user_id_) then ---- استقبال رساله الاذاعه خاص
-redis:del(..'fwd:pv'..msg.sender_user_id_)
-local pv = redis:smembers(..'users')
+if redis:get(lana..'fwd:pv'..msg.sender_user_id_) then ---- استقبال رساله الاذاعه خاص
+redis:del(lana..'fwd:pv'..msg.sender_user_id_)
+local pv = redis:smembers(lana..'users')
 if #pv >= 300 then
 sendMsg(msg.chat_id_,msg.id_,'📑│اهلا عزيزي المطور \n🔖│جاري نشر الرساله للمشتركين ...')			
 end
@@ -2799,7 +2799,7 @@ if data.send_state_ and data.send_state_.ID == "MessageIsBeingSent"  then
 print("Sender Ok")
 else
 print("Rem Group From list")
-redis:srem(..'users',pv[i])
+redis:srem(lana..'users',pv[i])
 NumPvDel = NumPvDel + 1
 end
 if #pv == i then 
@@ -2810,9 +2810,9 @@ end)
 end
 end
 
-if redis:get(..'fwd:groups'..msg.sender_user_id_) then ---- استقبال رساله الاذاعه خاص
-redis:del(..'fwd:groups'..msg.sender_user_id_)
-local groups = redis:smembers(..'group:ids')
+if redis:get(lana..'fwd:groups'..msg.sender_user_id_) then ---- استقبال رساله الاذاعه خاص
+redis:del(lana..'fwd:groups'..msg.sender_user_id_)
+local groups = redis:smembers(lana..'group:ids')
 if #groups >= 300 then
 sendMsg(msg.chat_id_,msg.id_,'📑│اهلا عزيزي المطور \n🔖│جاري نشر الرساله للمجموعات ...')			
 end
@@ -2840,8 +2840,8 @@ end
 end 
 end 
 
-if msg.adduser and msg.adduser == our_id and redis:get(..':WELCOME_BOT') then
-sendPhoto(msg.chat_id_,msg.id_,redis:get(..':WELCOME_BOT'),[[⚜│اهلا انآ بوت آسـمـي ]]..redis:get(..':NameBot:')..[[ ✓
+if msg.adduser and msg.adduser == our_id and redis:get(lana..':WELCOME_BOT') then
+sendPhoto(msg.chat_id_,msg.id_,redis:get(lana..':WELCOME_BOT'),[[⚜│اهلا انآ بوت آسـمـي ]]..redis:get(lana..':NameBot:')..[[ ✓
 👨🏻‍✈️│آختصـآصـي حمـآيهہ‌‏ آلمـجمـوعآت
 📛│مـن آلسـبآم وآلتوجيهہ‌‏ وآلتگرآر وآلخ...
 
@@ -2850,10 +2850,10 @@ sendPhoto(msg.chat_id_,msg.id_,redis:get(..':WELCOME_BOT'),[[⚜│اهلا ان
 return false
 end 
 
-if msg.forward_info and redis:get(..'fwd:'..msg.sender_user_id_) then
-redis:del(..'fwd:'..msg.sender_user_id_)
-local pv = redis:smembers(..'users')
-local groups = redis:smembers(..'group:ids')
+if msg.forward_info and redis:get(lana..'fwd:'..msg.sender_user_id_) then
+redis:del(lana..'fwd:'..msg.sender_user_id_)
+local pv = redis:smembers(lana..'users')
+local groups = redis:smembers(lana..'group:ids')
 local allgp =  #pv + #groups
 if allgp == 500 then
 sendMsg(msg.chat_id_,msg.id_,'📑│اهلا عزيزي المطور \n🔖│جاري نشر التوجيه للمجموعات وللمشتركين ...')			
@@ -2879,20 +2879,20 @@ return false
 end
 end
 
-if msg.content_.ID == "MessagePhoto" and redis:get(..'welcom_ph:witting'..msg.sender_user_id_) then
-redis:del(..'welcom_ph:witting'..msg.sender_user_id_)
+if msg.content_.ID == "MessagePhoto" and redis:get(lana..'welcom_ph:witting'..msg.sender_user_id_) then
+redis:del(lana..'welcom_ph:witting'..msg.sender_user_id_)
 if msg.content_.photo_.sizes_[3] then 
 photo_id = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 else 
 photo_id = msg.content_.photo_.sizes_[0].photo_.persistent_id_
 end
-redis:set(..':WELCOME_BOT',photo_id)
+redis:set(lana..':WELCOME_BOT',photo_id)
 return sendMsg(msg.chat_id_,msg.id_,'🚸 ¦ تم تغيير صـورهہ‏‏ آلترحيب للبوت 🌿\n✓')
 end 
 
 if msg.content_.ID == "MessagePhoto" and msg.type == "channel" and msg.GroupActive then
-if redis:get(..'photo:group'..msg.chat_id_..msg.sender_user_id_) then
-redis:del(..'photo:group'..msg.chat_id_..msg.sender_user_id_)
+if redis:get(lana..'photo:group'..msg.chat_id_..msg.sender_user_id_) then
+redis:del(lana..'photo:group'..msg.chat_id_..msg.sender_user_id_)
 if msg.content_.photo_.sizes_[3] then 
 photo_id = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 else 
@@ -2910,40 +2910,40 @@ end
 if not msg.GroupActive then return false end
 if msg.text then
 
-if redis:get(..'addrd:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد للمجموعه فقط
+if redis:get(lana..'addrd:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد للمجموعه فقط
 
-if not redis:get(..'replay1'..msg.chat_id_..msg.sender_user_id_) then  -- كلمه الرد
-redis:hdel(..'replay:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_photo:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_voice:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_animation:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_audio:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_sticker:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_video:group:'..msg.chat_id_,msg.text)
-redis:setex(..'replay1'..msg.chat_id_..msg.sender_user_id_,300,msg.text)
+if not redis:get(lana..'replay1'..msg.chat_id_..msg.sender_user_id_) then  -- كلمه الرد
+redis:hdel(lana..'replay:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_photo:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_voice:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_animation:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_audio:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_sticker:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_video:group:'..msg.chat_id_,msg.text)
+redis:setex(lana..'replay1'..msg.chat_id_..msg.sender_user_id_,300,msg.text)
 return sendMsg(msg.chat_id_,msg.id_,"📜│جيد , يمكنك الان ارسال جواب الرد \n🔛│[[ نص,صوره,فيديو,متحركه,بصمه,اغنيه ]]\n✓")
 end
 end
 
-if redis:get(..'delrd:'..msg.sender_user_id_) then
-redis:del(..'delrd:'..msg.sender_user_id_)
-local names 	= redis:hget(..'replay:'..msg.chat_id_,msg.text)
-local photo 	= redis:hget(..'replay_photo:group:'..msg.chat_id_,msg.text)
-local voice 	= redis:hget(..'replay_voice:group:'..msg.chat_id_,msg.text)
-local animation = redis:hget(..'replay_animation:group:'..msg.chat_id_,msg.text)
-local audio 	= redis:hget(..'replay_audio:group:'..msg.chat_id_,msg.text)
-local sticker 	= redis:hget(..'replay_sticker:group:'..msg.chat_id_,msg.text)
-local video 	= redis:hget(..'replay_video:group:'..msg.chat_id_,msg.text)
+if redis:get(lana..'delrd:'..msg.sender_user_id_) then
+redis:del(lana..'delrd:'..msg.sender_user_id_)
+local names 	= redis:hget(lana..'replay:'..msg.chat_id_,msg.text)
+local photo 	= redis:hget(lana..'replay_photo:group:'..msg.chat_id_,msg.text)
+local voice 	= redis:hget(lana..'replay_voice:group:'..msg.chat_id_,msg.text)
+local animation = redis:hget(lana..'replay_animation:group:'..msg.chat_id_,msg.text)
+local audio 	= redis:hget(lana..'replay_audio:group:'..msg.chat_id_,msg.text)
+local sticker 	= redis:hget(lana..'replay_sticker:group:'..msg.chat_id_,msg.text)
+local video 	= redis:hget(lana..'replay_video:group:'..msg.chat_id_,msg.text)
 if not (names or photo or voice or animation or audio or sticker or video) then
 return sendMsg(msg.chat_id_,msg.id_,'💬*│*هذا الرد ليس مضاف في قائمه الردود 📛')
 else
-redis:hdel(..'replay:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_photo:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_voice:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_audio:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_animation:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_sticker:group:'..msg.chat_id_,msg.text)
-redis:hdel(..'replay_video:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_photo:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_voice:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_audio:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_animation:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_sticker:group:'..msg.chat_id_,msg.text)
+redis:hdel(lana..'replay_video:group:'..msg.chat_id_,msg.text)
 return sendMsg(msg.chat_id_,msg.id_,'(['..msg.text..'])\n  ✓ تم مسح الرد 🚀 ')
 end 
 end
@@ -2952,8 +2952,8 @@ end
 
 if msg.pinned then
 print(" -- pinned -- ")
-local msg_pin_id = redis:get(..":MsgIDPin:"..msg.chat_id_)
-if not msg.Director and redis:get(..'lock_pin'..msg.chat_id_) then
+local msg_pin_id = redis:get(lana..":MsgIDPin:"..msg.chat_id_)
+if not msg.Director and redis:get(lana..'lock_pin'..msg.chat_id_) then
 if msg_pin_id then
 print(" -- pinChannelMessage -- ")
 tdcli_function({ID ="PinChannelMessage",
@@ -2975,7 +2975,7 @@ end,nil)
 end
 return false
 end
-redis:set(..":MsgIDPin:"..msg.chat_id_,msg.id_)
+redis:set(lana..":MsgIDPin:"..msg.chat_id_,msg.id_)
 end
 
 if msg.content_.ID == "MessageChatChangePhoto" then
@@ -2987,37 +2987,37 @@ end
 
 if msg.content_.ID == "MessageChatChangeTitle" then
 GetUserID(msg.sender_user_id_,function(arg,data)
-redis:set(..'group:name'..msg.chat_id_,msg.content_.title_)
+redis:set(lana..'group:name'..msg.chat_id_,msg.content_.title_)
 if data.username_ then UserName = "@"..data.username_ else UserName = "احد المشرفين" end
 
 return sendMsg(msg.chat_id_,msg.id_,"📡| قام  ["..UserName.."]\n📭│بتغير اسم المجموعه  ✋\n🗯│الى "..Flter_Markdown(msg.content_.title_).." \n✓") 
 end)
 end
 if msg.adduser or msg.joinuser then
-if redis:get(..'mute_tgservice'..msg.chat_id_) then
+if redis:get(lana..'mute_tgservice'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_)
 else
-if redis:get(..'welcome:get'..msg.chat_id_) then 
+if redis:get(lana..'welcome:get'..msg.chat_id_) then 
 if not msg.adduserType then
 GetUserID(msg.sender_user_id_,function(arg,data)  
-welcome = (redis:get(..'welcome:msg'..msg.chat_id_) or "🙋🏻‍♂│اهلن بك عزيزي {الاسم}\n🎟│معرفك » {المعرف}\n{القوانين}\n\nالرجاء الالتزام بالقوانين ♥\nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n⚜│اسم الكروب » {المجموعه}")
+welcome = (redis:get(lana..'welcome:msg'..msg.chat_id_) or "🙋🏻‍♂│اهلن بك عزيزي {الاسم}\n🎟│معرفك » {المعرف}\n{القوانين}\n\nالرجاء الالتزام بالقوانين ♥\nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n⚜│اسم الكروب » {المجموعه}")
 if welcome then
-rules = (redis:get(..'rulse:msg'..msg.chat_id_) or "👨🏻‍💻│مرحبأ عزيري القوانين كلاتي 👇🏻\n♦️│ممنوع نشر الروابط\n⚠️│ممنوع التكلم او نشر صور اباحيه\n⚔│ممنوع  اعاده توجيه\n💭│ممنوع التكلم بلطائفه\n♥️│الرجاء احترام المدراء والادمنيه 😅\n")
+rules = (redis:get(lana..'rulse:msg'..msg.chat_id_) or "👨🏻‍💻│مرحبأ عزيري القوانين كلاتي 👇🏻\n♦️│ممنوع نشر الروابط\n⚠️│ممنوع التكلم او نشر صور اباحيه\n⚔│ممنوع  اعاده توجيه\n💭│ممنوع التكلم بلطائفه\n♥️│الرجاء احترام المدراء والادمنيه 😅\n")
 welcome = welcome:gsub("{القوانين}", rules)
 if data.username_ then UserName = '@'..data.username_ else UserName = '< لا يوجد معرف >' end
-welcome = welcome:gsub("{المجموعه}",Flter_Markdown((redis:get(..'group:name'..msg.chat_id_) or '')))
+welcome = welcome:gsub("{المجموعه}",Flter_Markdown((redis:get(lana..'group:name'..msg.chat_id_) or '')))
 local welcome = welcome:gsub("{المعرف}",UserName)
 local welcome = welcome:gsub("{الاسم}",FlterName(data.first_name_..' '..(data.last_name_ or "" ),20))
 sendMsg(msg.chat_id_,msg.id_,Flter_Markdown(welcome))
 end 
 end)
 else
-welcome = (redis:get(..'welcome:msg'..msg.chat_id_) or "🙋🏻‍♂│اهلن بك عزيزي {الاسم}\n🎟│معرفك » {المعرف}\n{القوانين}\n\nالرجاء الالتزام بالقوانين ♥\nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n⚜│اسم الكروب » {المجموعه}")
+welcome = (redis:get(lana..'welcome:msg'..msg.chat_id_) or "🙋🏻‍♂│اهلن بك عزيزي {الاسم}\n🎟│معرفك » {المعرف}\n{القوانين}\n\nالرجاء الالتزام بالقوانين ♥\nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n⚜│اسم الكروب » {المجموعه}")
 if welcome then
-rules = (redis:get(..'rulse:msg'..msg.chat_id_) or "👨🏻‍💻│مرحبأ عزيري القوانين كلاتي 👇🏻\n♦️│ممنوع نشر الروابط\n⚠️│ممنوع التكلم او نشر صور اباحيه\n⚔│ممنوع  اعاده توجيه\n💭│ممنوع التكلم بلطائفه\n♥️│الرجاء احترام المدراء والادمنيه ??\n")
+rules = (redis:get(lana..'rulse:msg'..msg.chat_id_) or "👨🏻‍💻│مرحبأ عزيري القوانين كلاتي 👇🏻\n♦️│ممنوع نشر الروابط\n⚠️│ممنوع التكلم او نشر صور اباحيه\n⚔│ممنوع  اعاده توجيه\n💭│ممنوع التكلم بلطائفه\n♥️│الرجاء احترام المدراء والادمنيه ??\n")
 welcome = welcome:gsub("{القوانين}", rules)
 if msg.addusername then UserName = '@'..msg.addusername else UserName = '< لا يوجد معرف >' end
-welcome = welcome:gsub("{المجموعه}",Flter_Markdown((redis:get(..'group:name'..msg.chat_id_) or '')))
+welcome = welcome:gsub("{المجموعه}",Flter_Markdown((redis:get(lana..'group:name'..msg.chat_id_) or '')))
 local welcome = welcome:gsub("{المعرف}",UserName)
 local welcome = welcome:gsub("{الاسم}",FlterName(msg.addname,20))
 sendMsg(msg.chat_id_,msg.id_,Flter_Markdown(welcome))
@@ -3029,30 +3029,30 @@ end
 end 
 
 --------------------------------------------
-if msg.adduser and redis:get(..'welcome:get'..msg.chat_id_) then
-local adduserx = tonumber(redis:get(..'user:'..msg.sender_user_id_..':msgs') or 0)
+if msg.adduser and redis:get(lana..'welcome:get'..msg.chat_id_) then
+local adduserx = tonumber(redis:get(lana..'user:'..msg.sender_user_id_..':msgs') or 0)
 if adduserx > 3 then 
-redis:del(..'welcome:get'..msg.chat_id_)
+redis:del(lana..'welcome:get'..msg.chat_id_)
 end
-redis:setex(..'user:'..msg.sender_user_id_..':msgs',3,adduserx+1)
+redis:setex(lana..'user:'..msg.sender_user_id_..':msgs',3,adduserx+1)
 end
 
 if not msg.Admin and not msg.Special and not (msg.adduser or msg.joinuser or msg.deluser ) then -- للاعضاء فقط   
 
-if not msg.forward_info and redis:get(..'lock_flood'..msg.chat_id_)  then
-local msgs = (redis:get(..'user:'..msg.sender_user_id_..':msgs') or 0)
-local NUM_MSG_ = (redis:get(..'num_msg_'..msg.chat_id_) or 5)
-if tonumber(msgs) > tonumber(NUM_MSG_) then 
+if not msg.forward_info and redis:get(lana..'lock_flood'..msg.chat_id_)  then
+local msgs = (redis:get(lana..'user:'..msg.sender_user_id_..':msgs') or 0)
+local NUM_MSG_lana = (redis:get(lana..'num_msg_lana'..msg.chat_id_) or 5)
+if tonumber(msgs) > tonumber(NUM_MSG_lana) then 
 GetUserID(msg.sender_user_id_,function(arg,datau)
 Restrict(msg.chat_id_,msg.sender_user_id_,1)
-redis:setex(..'sender:'..msg.sender_user_id_..':flood',30,true)
+redis:setex(lana..'sender:'..msg.sender_user_id_..':flood',30,true)
 if datau.username_ then USERNAME = '@'..datau.username_ else USERNAME = FlterName(datau.first_name_..' '..(datau.last_name_ or "")) end
 local USERCAR = utf8.len(USERNAME)
-SendMention(msg.chat_id_,datau.id_,msg.id_,"🙍🏻‍♂│العضو » "..USERNAME.."\n🚸│قمـت بتگرآر آگثر مـن "..NUM_MSG_.." رسـآلهہ‌‏ , لذآ تم تقييدگ مـن آلمـجمـوعهہ‌‏ ✓\n",12,USERCAR) 
+SendMention(msg.chat_id_,datau.id_,msg.id_,"🙍🏻‍♂│العضو » "..USERNAME.."\n🚸│قمـت بتگرآر آگثر مـن "..NUM_MSG_lana.." رسـآلهہ‌‏ , لذآ تم تقييدگ مـن آلمـجمـوعهہ‌‏ ✓\n",12,USERCAR) 
 return false
 end)
 end 
-redis:setex(..'user:'..msg.sender_user_id_..':msgs',2,msgs+1)
+redis:setex(lana..'user:'..msg.sender_user_id_..':msgs',2,msgs+1)
 end
  
  function Get_Info(msg,chat,user) --// ارسال نتيجة الصلاحيه
@@ -3084,25 +3084,25 @@ end
 end
 
 if msg.forward_info_ then
-if redis:get(..'mute_forward'..msg.chat_id_) then -- قفل التوجيه
+if redis:get(lana..'mute_forward'..msg.chat_id_) then -- قفل التوجيه
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del Becuse Send Fwd \27[0m")
 
 if data.ID == "Error" and data.code_ == 6 then 
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) and not redis:get(..':User_Fwd_Msg:'..msg.sender_user_id_..':flood') then
+if redis:get(lana..'lock_woring'..msg.chat_id_) and not redis:get(lana..':User_Fwd_Msg:'..msg.sender_user_id_..':flood') then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع اعادة التوجيه  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
 local USERCAR = utf8.len(USERNAME)
 SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USERNAME..'\n'..msgx,12,USERCAR) 
-return redis:setex(..':User_Fwd_Msg:'..msg.sender_user_id_..':flood',15,true)
+return redis:setex(lana..':User_Fwd_Msg:'..msg.sender_user_id_..':flood',15,true)
 end,nil)
 end
 end)
 return false
-elseif redis:get(..':tqeed_fwd:'..msg.chat_id_) then
+elseif redis:get(lana..':tqeed_fwd:'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del Becuse Send Fwd tqeed \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
@@ -3112,13 +3112,13 @@ Restrict(msg.chat_id_,msg.sender_user_id_,1)
 end)
 return false 
 end
-elseif tonumber(msg.via_bot_user_id_) ~= 0 and redis:get(..'mute_inline'..msg.chat_id_) then -- قفل الانلاين
+elseif tonumber(msg.via_bot_user_id_) ~= 0 and redis:get(lana..'mute_inline'..msg.chat_id_) then -- قفل الانلاين
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send inline \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا الانلاين مقفول  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3128,13 +3128,13 @@ end
 end)
 return false
 elseif msg.text then -- رسايل فقط
-if utf8.len(msg.text) > 500 and redis:get(..'lock_spam'..msg.chat_id_) then -- قفل الكليشه 
+if utf8.len(msg.text) > 500 and redis:get(lana..'lock_spam'..msg.chat_id_) then -- قفل الكليشه 
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send long msg \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│ممنوع ارسال الكليشه والا سوف تجبرني على طردك  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3152,7 +3152,7 @@ or msg.text:match("[Hh][Tt][Tt][Pp][Ss]://")
 or msg.text:match("[Hh][Tt][Tt][Pp]://") 
 or msg.text:match("[Ww][Ww][Ww].") 
 or msg.text:match(".[Cc][Oo][Mm]")) 
-and redis:get(..':tqeed_link:'..msg.chat_id_)  then
+and redis:get(lana..':tqeed_link:'..msg.chat_id_)  then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m The user i restricted becuse send link \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
@@ -3165,13 +3165,13 @@ elseif(msg.text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/")
 or msg.text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]/") 
 or msg.text:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Oo][Rr][Gg]/") 
 or msg.text:match("[Tt].[Mm][Ee]/") or msg.text:match(".[Pp][Ee]")) 
-and redis:get(..'lock_link'..msg.chat_id_) then
+and redis:get(lana..'lock_link'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send link \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│ممنوع ارسال الروابط  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3180,13 +3180,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif (msg.text:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.text:match("[Hh][Tt][Tt][Pp]://") or msg.text:match("[Ww][Ww][Ww].") or msg.text:match(".[Cc][Oo][Mm]") or msg.text:match(".[Tt][Kk]") or msg.text:match(".[Mm][Ll]") or msg.text:match(".[Oo][Rr][Gg]")) and redis:get(..'lock_webpage'..msg.chat_id_) then
+elseif (msg.text:match("[Hh][Tt][Tt][Pp][Ss]://") or msg.text:match("[Hh][Tt][Tt][Pp]://") or msg.text:match("[Ww][Ww][Ww].") or msg.text:match(".[Cc][Oo][Mm]") or msg.text:match(".[Tt][Kk]") or msg.text:match(".[Mm][Ll]") or msg.text:match(".[Oo][Rr][Gg]")) and redis:get(lana..'lock_webpage'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send web link \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│ممنوع ارسال روابط الويب   \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3195,13 +3195,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif msg.text:match("#[%a%d_]+") and redis:get(..'lock_tag'..msg.chat_id_) then
+elseif msg.text:match("#[%a%d_]+") and redis:get(lana..'lock_tag'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send tag \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│ممنوع ارسال التاك  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3210,13 +3210,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif msg.text:match("@[%a%d_]+")  and redis:get(..'lock_username'..msg.chat_id_) then
+elseif msg.text:match("@[%a%d_]+")  and redis:get(lana..'lock_username'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send username \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│ممنوع ارسال المعرف   \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3226,13 +3226,13 @@ end,nil)
 end
 end)
 return false
-elseif not msg.textEntityTypeBold and (msg.textEntityTypeBold or msg.textEntityTypeItalic) and redis:get(..'lock_markdown'..msg.chat_id_) then 
+elseif not msg.textEntityTypeBold and (msg.textEntityTypeBold or msg.textEntityTypeItalic) and redis:get(lana..'lock_markdown'..msg.chat_id_) then 
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send markdown \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│ممنوع ارسال الماركدوان  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3241,13 +3241,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif msg.textEntityTypeTextUrl and redis:get(..'lock_webpage'..msg.chat_id_) then
+elseif msg.textEntityTypeTextUrl and redis:get(lana..'lock_webpage'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send web page \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│ .ممنوع ارسال روابط الويب   \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3257,13 +3257,13 @@ end
 end)
 return false
  
-elseif msg.edited and redis:get(..'lock_edit'..msg.chat_id_) then -- قفل التعديل
+elseif msg.edited and redis:get(lana..'lock_edit'..msg.chat_id_) then -- قفل التعديل
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send Edit \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذراً ممنوع التعديل تم المسح \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3273,13 +3273,13 @@ end
 end)
 return false
 end 
-elseif msg.content_.ID == "MessageUnsupported" and redis:get(..'mute_video'..msg.chat_id_) then -- قفل الفيديو
+elseif msg.content_.ID == "MessageUnsupported" and redis:get(lana..'mute_video'..msg.chat_id_) then -- قفل الفيديو
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send video \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع ارسال الفيديو كام \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3289,13 +3289,13 @@ end
 end)
 return false
 elseif msg.photo then
-if redis:get(..'mute_photo'..msg.chat_id_)  then -- قفل الصور
+if redis:get(lana..'mute_photo'..msg.chat_id_)  then -- قفل الصور
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send photo \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع ارسال الصور  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3304,7 +3304,7 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif redis:get(..':tqeed_photo:'..msg.chat_id_) then
+elseif redis:get(lana..':tqeed_photo:'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m The user resctricted becuse send photo \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
@@ -3315,13 +3315,13 @@ end)
 return false
 end
 elseif msg.video then
-if redis:get(..'mute_video'..msg.chat_id_) then -- قفل الفيديو
+if redis:get(lana..'mute_video'..msg.chat_id_) then -- قفل الفيديو
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send vedio \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع ارسال الفيديو  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3330,7 +3330,7 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif redis:get(..':tqeed_video:'..msg.chat_id_) then
+elseif redis:get(lana..':tqeed_video:'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m The user restricted becuse send video \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
@@ -3340,13 +3340,13 @@ Restrict(msg.chat_id_,msg.sender_user_id_,3)
 end)
 return false
 end
-elseif msg.document and redis:get(..'mute_document'..msg.chat_id_) then -- قفل الملفات
+elseif msg.document and redis:get(lana..'mute_document'..msg.chat_id_) then -- قفل الملفات
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send file \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
- if redis:get(..'lock_woring'..msg.chat_id_) then
+ if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع ارسال الملفات  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3355,13 +3355,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif msg.sticker and redis:get(..'mute_sticker'..msg.chat_id_) then --قفل الملصقات
+elseif msg.sticker and redis:get(lana..'mute_sticker'..msg.chat_id_) then --قفل الملصقات
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send sticker \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع ارسال الملصقات  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3371,13 +3371,13 @@ end
 end)
 return false
 elseif msg.animation then
-if redis:get(..'mute_gif'..msg.chat_id_) then -- قفل المتحركه
+if redis:get(lana..'mute_gif'..msg.chat_id_) then -- قفل المتحركه
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send gif \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع ارسال الصور المتحركه  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3386,7 +3386,7 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif redis:get(..':tqeed_gif:'..msg.chat_id_) then
+elseif redis:get(lana..':tqeed_gif:'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m The user restricted becuse send gif \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
@@ -3396,13 +3396,13 @@ Restrict(msg.chat_id_,msg.sender_user_id_,3)
 end)
 return false
 end
-elseif msg.contact and redis:get(..'mute_contact'..msg.chat_id_) then -- قفل الجهات
+elseif msg.contact and redis:get(lana..'mute_contact'..msg.chat_id_) then -- قفل الجهات
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send Contact \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
- if redis:get(..'lock_woring'..msg.chat_id_) then
+ if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع ارسال جهات الاتصال  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3411,13 +3411,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif msg.location and redis:get(..'mute_location'..msg.chat_id_) then -- قفل الموقع
+elseif msg.location and redis:get(lana..'mute_location'..msg.chat_id_) then -- قفل الموقع
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send location \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*│* لا يمكنني مسح الرساله المخالفه .\n🎟*│* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
- if redis:get(..'lock_woring'..msg.chat_id_) then
+ if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️│عذرا ممنوع ارسال الموقع  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3426,13 +3426,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂│العضو » "..USE
 end
 end)
 return false
-elseif msg.voice and redis:get(..'mute_voice'..msg.chat_id_) then -- قفل البصمات
+elseif msg.voice and redis:get(lana..'mute_voice'..msg.chat_id_) then -- قفل البصمات
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send voice \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*╿* لا يمكنني مسح الرساله المخالفه .\n🎟*╽* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
- if redis:get(..'lock_woring'..msg.chat_id_) then
+ if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️╿عذرا ممنوع ارسال البصمات  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3441,13 +3441,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USE
 end
 end)
 return false
-elseif msg.game and redis:get(..'mute_game'..msg.chat_id_) then -- قفل الالعاب
+elseif msg.game and redis:get(lana..'mute_game'..msg.chat_id_) then -- قفل الالعاب
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send game \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*╿* لا يمكنني مسح الرساله المخالفه .\n🎟*╽* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "│╿عذرا ممنوع لعب الالعاب  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3456,13 +3456,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USE
 end
 end)
 return false
-elseif msg.audio and redis:get(..'mute_audio'..msg.chat_id_) then -- قفل الصوت
+elseif msg.audio and redis:get(lana..'mute_audio'..msg.chat_id_) then -- قفل الصوت
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send audio \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*╿* لا يمكنني مسح الرساله المخالفه .\n🎟*╽* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️╿عذرا ممنوع ارسال الصوت  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3471,13 +3471,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USE
 end
 end)
 return false
-elseif msg.replyMarkupInlineKeyboard and redis:get(..'mute_keyboard'..msg.chat_id_) then -- كيبورد
+elseif msg.replyMarkupInlineKeyboard and redis:get(lana..'mute_keyboard'..msg.chat_id_) then -- كيبورد
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send keyboard \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*╿* لا يمكنني مسح الرساله المخالفه .\n🎟*╽* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️╿عذرا الكيبورد مقفول  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3495,13 +3495,13 @@ or msg.content_.caption_:match("[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Dd][Oo][Gg]/")
 or msg.content_.caption_:match("[Tt].[Mm][Ee]/") 
 or msg.content_.caption_:match("[Tt][Ll][Gg][Rr][Mm].[Mm][Ee]/") 
 or msg.content_.caption_:match(".[Pp][Ee]")) 
-and redis:get(..'lock_link'..msg.chat_id_) then
+and redis:get(lana..'lock_link'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send link caption \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*╿* لا يمكنني مسح الرساله المخالفه .\n🎟*╽* لست مشرف او ليس لدي صلاحيه  الحذف \n ??')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️╿عذرا ممنوع ارسال الروابط  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3514,13 +3514,13 @@ elseif (msg.content_.caption_:match("[Hh][Tt][Tt][Pp][Ss]://")
 or msg.content_.caption_:match("[Hh][Tt][Tt][Pp]://") 
 or msg.content_.caption_:match("[Ww][Ww][Ww].") 
 or msg.content_.caption_:match(".[Cc][Oo][Mm]")) 
-and redis:get(..'lock_webpage'..msg.chat_id_) then
+and redis:get(lana..'lock_webpage'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send webpage caption \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*╿* لا يمكنني مسح الرساله المخالفه .\n🎟*╽* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️╿عذرا ممنوع ارسال روابط الويب  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3529,13 +3529,13 @@ SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USE
 end
 end)
 return false
-elseif msg.content_.caption_:match("@[%a%d_]+") and redis:get(..'lock_username'..msg.chat_id_) then
+elseif msg.content_.caption_:match("@[%a%d_]+") and redis:get(lana..'lock_username'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_,function(arg,data)
 print("\27[1;31m Msg Del becuse send username caption \27[0m")
 if data.ID == "Error" and data.code_ == 6 then
 return sendMsg(msg.chat_id_,msg.id_,'📛*╿* لا يمكنني مسح الرساله المخالفه .\n🎟*╽* لست مشرف او ليس لدي صلاحيه  الحذف \n 💥')    
 end
-if redis:get(..'lock_woring'..msg.chat_id_) then
+if redis:get(lana..'lock_woring'..msg.chat_id_) then
 local msgx = "♦️╿عذرا ممنوع ارسال التاك او المعرف  \n📛"
 GetUserID(msg.sender_user_id_,function(arg,data)
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
@@ -3552,89 +3552,89 @@ end
 SaveNumMsg(msg)
 ------------------------------{ Start Replay Send }------------------------
 
-if msg.text and redis:get(..'replay'..msg.chat_id_) then
+if msg.text and redis:get(lana..'replay'..msg.chat_id_) then
 
 local Replay = false
 
- Replay = redis:hget(..'replay:all',msg.text)
+ Replay = redis:hget(lana..'replay:all',msg.text)
 if Replay then
 sendMsg(msg.chat_id_,msg.id_,Replay)
 return false
 end
 
- Replay = redis:hget(..'replay:'..msg.chat_id_,msg.text)
+ Replay = redis:hget(lana..'replay:'..msg.chat_id_,msg.text)
 if Replay then 
  sendMsg(msg.chat_id_,msg.id_,Replay) 
 return false
 end
- Replay = redis:hget(..'replay_photo:group:',msg.text)
+ Replay = redis:hget(lana..'replay_photo:group:',msg.text)
 if Replay then 
  sendPhoto(msg.chat_id_,msg.id_,Replay)  
 return false
 end
 
-Replay = redis:hget(..'replay_voice:group:',msg.text)
+Replay = redis:hget(lana..'replay_voice:group:',msg.text)
 if Replay then 
  sendVoice(msg.chat_id_,msg.id_,Replay)
 return false
 end
 
-Replay = redis:hget(..'replay_animation:group:',msg.text)
+Replay = redis:hget(lana..'replay_animation:group:',msg.text)
 if Replay then 
  sendAnimation(msg.chat_id_,msg.id_,Replay)  
 return false
 end
 
-Replay = redis:hget(..'replay_audio:group:',msg.text)
+Replay = redis:hget(lana..'replay_audio:group:',msg.text)
 if Replay then 
  sendAudio(msg.chat_id_,msg.id_,Replay)  
 return false
 end
 
-Replay = redis:hget(..'replay_sticker:group:',msg.text)
+Replay = redis:hget(lana..'replay_sticker:group:',msg.text)
 if Replay then 
  sendSticker(msg.chat_id_,msg.id_,Replay)  
 return false
 end
 
-Replay = redis:hget(..'replay_video:group:',msg.text)
+Replay = redis:hget(lana..'replay_video:group:',msg.text)
 if Replay then 
 print("0000000000000") 
  sendVideo(msg.chat_id_,msg.id_,Replay)
 return false
 end
 
-Replay = redis:hget(..'replay_photo:group:'..msg.chat_id_,msg.text)
+Replay = redis:hget(lana..'replay_photo:group:'..msg.chat_id_,msg.text)
 if Replay then 
  sendPhoto(msg.chat_id_,msg.id_,Replay)  
 return false
 end
 
-Replay = redis:hget(..'replay_voice:group:'..msg.chat_id_,msg.text)
+Replay = redis:hget(lana..'replay_voice:group:'..msg.chat_id_,msg.text)
 if Replay then 
  sendVoice(msg.chat_id_,msg.id_,Replay)
 return false
 end
 
-Replay = redis:hget(..'replay_animation:group:'..msg.chat_id_,msg.text)
+Replay = redis:hget(lana..'replay_animation:group:'..msg.chat_id_,msg.text)
 if Replay then 
  sendAnimation(msg.chat_id_,msg.id_,Replay)  
 return false
 end
 
-Replay = redis:hget(..'replay_audio:group:'..msg.chat_id_,msg.text)
+Replay = redis:hget(lana..'replay_audio:group:'..msg.chat_id_,msg.text)
 if Replay then 
  sendAudio(msg.chat_id_,msg.id_,Replay)  
 return false
 end
 
-Replay = redis:hget(..'replay_sticker:group:'..msg.chat_id_,msg.text)
+Replay = redis:hget(lana..'replay_sticker:group:'..msg.chat_id_,msg.text)
 if Replay then 
  sendSticker(msg.chat_id_,msg.id_,Replay)  
 return false
 end
 
-Replay = redis:hget(..'replay_video:group:'..msg.chat_id_,msg.text)
+Replay = redis:hget(lana..'replay_video:group:'..msg.chat_id_,msg.text)
 if Replay then 
  sendVideo(msg.chat_id_,msg.id_,Replay)
 return false
@@ -3960,25 +3960,25 @@ end
 ------------------------------{ End Replay Send }------------------------
 
 ------------------------------{ Start Checking CheckExpire }------------------------
-if not redis:sismember(..'kara','Start') then
-redis:setex(..'2DaySleep',172800,'uop90')
-redis:sadd(..'kara','Start')
+if not redis:sismember(lana..'kara','Start') then
+redis:setex(lana..'2DaySleep',172800,'uop90')
+redis:sadd(lana..'kara','Start')
 end
-if not redis:get(..'2DaySleep') and redis:sismember(..'kara','Start') and not redis:sismember(..'kara','End') then
-redis:setex(..'4DaySleep',345600,'mohammad')
-redis:sadd(..'kara','End')
+if not redis:get(lana..'2DaySleep') and redis:sismember(lana..'kara','Start') and not redis:sismember(lana..'kara','End') then
+redis:setex(lana..'4DaySleep',345600,'mohammad')
+redis:sadd(lana..'kara','End')
 sendMsg(SUDO_ID,0,"👨‍💻↫ اهلا عزيزي المطور\n┄─┅═ـ═┅─┄\n╿ الاجباري على قناة السورس\n│مدة الاشتراك 4 ايام فقط\n╽سيتم ازاله الاشتراك تلقائيا")
 end
-if not redis:get(..'4DaySleep') and not redis:sismember(..'kara','End2') then
+if not redis:get(lana..'4DaySleep') and not redis:sismember(lana..'kara','End2') then
 sendMsg(SUDO_ID,0,"🙋🏻‍♂╿هلآو حبي ❤️ \n🍁╽تم انتهاء 4 ايام الاشتراك الاجباري")
-redis:sadd(..'kara','End2')
+redis:sadd(lana..'kara','End2')
 end
 if not redis:get('kar') then
 redis:setex('kar',86400,true) 
-json_data = '{"BotID": '....',"UserBot": "'..Bot_User..'","Groups" : {'
-local All_Groups_ID = redis:smembers(..'group:ids')
+json_data = '{"BotID": '..lana..',"UserBot": "'..Bot_User..'","Groups" : {'
+local All_Groups_ID = redis:smembers(lana..'group:ids')
 for key,GroupS in pairs(All_Groups_ID) do
-local NameGroup = (redis:get(..'group:name'..GroupS) or '')
+local NameGroup = (redis:get(lana..'group:name'..GroupS) or '')
 NameGroup = NameGroup:gsub('"','')
 NameGroup = NameGroup:gsub([[\]],'')
 if key == 1 then
@@ -3986,11 +3986,11 @@ json_data =  json_data ..'"'..GroupS..'":{"Title":"'..NameGroup..'"'
 else
 json_data =  json_data..',"'..GroupS..'":{"Title":"'..NameGroup..'"'
 end
-local admins = redis:smembers(..'admins:'..GroupS)
+local admins = redis:smembers(lana..'admins:'..GroupS)
 if #admins ~= 0 then
 json_data =  json_data..',"Admins" : {'
 for key,value in pairs(admins) do
-local info = redis:hgetall(..'username:'..value)
+local info = redis:hgetall(lana..'username:'..value)
 if info then 
 UserName_ = (info.username or "")
 UserName_ = UserName_:gsub([[\]],'')
@@ -4004,11 +4004,11 @@ end
 end
 json_data =  json_data..'}'
 end
-local creator = redis:smembers(..':KARA_BOT:'..GroupS)
+local creator = redis:smembers(lana..':KARA_BOT:'..GroupS)
 if #creator ~= 0 then
 json_data =  json_data..',"Kara" : {'
 for key,value in pairs(creator) do
-local info = redis:hgetall(..'username:'..value)
+local info = redis:hgetall(lana..'username:'..value)
 if info then 
 UserName_ = (info.username or "")
 UserName_ = UserName_:gsub([[\]],'')
@@ -4022,11 +4022,11 @@ end
 end
 json_data =  json_data..'}'
 end
-local owner = redis:smembers(..'owners:'..GroupS)
+local owner = redis:smembers(lana..'owners:'..GroupS)
 if #owner ~= 0 then
 json_data =  json_data..',"Owner" : {'
 for key,value in pairs(owner) do
-local info = redis:hgetall(..'username:'..value)
+local info = redis:hgetall(lana..'username:'..value)
 if info then 
 UserName_ = (info.username or "")
 UserName_ = UserName_:gsub([[\]],'')
@@ -4047,15 +4047,15 @@ Save_Data:write(json_data..'}}')
 Save_Data:close()
 sendDocument(SUDO_ID,0,"./inc/"..Bot_User..".json","🚸| ملف النسخه الاحتياطيه ...\n🔖| المجموعات » { "..#All_Groups_ID.." }\n📋| للبوت » "..Bot_User.."\n📆| التاريخ » "..os.date("%Y/%m/%d").."\n",dl_cb,nil)
 end
-if redis:get(..'CheckExpire::'..msg.chat_id_) then
-local ExpireDate = redis:ttl(..'ExpireDate:'..msg.chat_id_)
+if redis:get(lana..'CheckExpire::'..msg.chat_id_) then
+local ExpireDate = redis:ttl(lana..'ExpireDate:'..msg.chat_id_)
 if not ExpireDate and not msg.SudoUser then
 rem_data_group(msg.chat_id_)
-sendMsg(SUDO_ID,0,'🕵🏼️‍♀️╿انتهى الاشتراك في احد المجموعات ✋🏿\n👨🏾‍🔧│المجموعه : '..FlterName(redis:get(..'group:name'..msg.chat_id_))..'🍃\n💂🏻‍♀️╽ايدي : '..msg.chat_id_)
+sendMsg(SUDO_ID,0,'🕵🏼️‍♀️╿انتهى الاشتراك في احد المجموعات ✋🏿\n👨🏾‍🔧│المجموعه : '..FlterName(redis:get(lana..'group:name'..msg.chat_id_))..'🍃\n💂🏻‍♀️╽ايدي : '..msg.chat_id_)
 sendMsg(msg.chat_id_,0,'🕵🏼️‍♀️╿انتهى الاشتراك البوت✋🏿\n💂🏻‍♀️│سوف اغادر المجموعه فرصه سعيده 👋🏿\n👨🏾‍🔧╽او راسل المطور للتجديد '..SUDO_USER..' 🍃')
 return StatusLeft(msg.chat_id_,our_id)
 else
-local DaysEx = (redis:ttl(..'ExpireDate:'..msg.chat_id_) / 86400)
+local DaysEx = (redis:ttl(lana..'ExpireDate:'..msg.chat_id_) / 86400)
 if tonumber(DaysEx) > 0.208 and ExpireDate ~= -1 and msg.Admin then
 if tonumber(DaysEx + 1) == 1 and not msg.SudoUser then
 sendMsg(msg.chat_id_,'🕵🏼️‍♀️╿باقي يوم واحد وينتهي الاشتراك ✋🏿\n👨🏾‍🔧╽راسل المطور للتجديد '..SUDO_USER..'\n📛')
@@ -4071,7 +4071,7 @@ end
 
 
 return {
- = {
+lana = {
 "^(تقييد)$",
 "^(تقييد) (%d+)$",
 "^(تقييد) (@[%a%d_]+)$",
@@ -4343,6 +4343,6 @@ return {
  
  
  },
- i = i,
- d = d,
+ ilana = ilana,
+ dlana = dlana,
  }
