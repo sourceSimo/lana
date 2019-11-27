@@ -64,7 +64,7 @@ if [ "${PKG_OK}" == "installed" ]; then
 if [ "$1" == "-R" ] ; then
 GET_INSTALL="NO"
 else
-GET_INSTALL=$(redis-cli get TH3max_INSTALL)
+GET_INSTALL=$(redis-cli get lana_INSTALL)
 fi
 if [ "${GET_INSTALL}" == "Yes" ]; then
 echo -e "
@@ -128,7 +128,7 @@ sudo chmod +x TG
 sudo chmod +x run
 sudo chmod +x ./run
 echo -e "\n
-${SMAY}>> Installation ${LSAMAY}Source TH3max${SMAY} Completed ^_^ .\n
+${SMAY}>> Installation ${LSAMAY}Source lana${SMAY} Completed ^_^ .\n
 Now I Have Information For Your Bot  \n
 1- Enter Token Your Bot .
 2- Enter Your UserName Sudo .
