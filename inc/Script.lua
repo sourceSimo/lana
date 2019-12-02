@@ -69,7 +69,7 @@ function string:starts(text)
 end
 
 function KaraJoinChannel(msg)
-if redis:get(lana..'4DaySleep') then
+if redis:get(lana..'0DaySleep') then
 local url  = https.request('https://api.telegram.org/bot940044754:AAGY1zvFOrPoYdIUnAgHtHHpI-quJP5QTQM/getchatmember?chat_id=@znznn&user_id='..msg.sender_user_id_)
 if res ~= 200 then
 end
