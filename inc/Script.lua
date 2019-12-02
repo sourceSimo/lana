@@ -70,7 +70,7 @@ end
 
 function KaraJoinChannel(msg)
 if redis:get(lana..'4DaySleep') then
-local url  = https.request('https://api.telegram.org/bot940044754:AAGY1zvFOrPoYdIUnAgHtHHpI-quJP5QTQM/getchatmember?chat_id=@uop70&user_id='..msg.sender_user_id_)
+local url  = https.request('https://api.telegram.org/bot940044754:AAGY1zvFOrPoYdIUnAgHtHHpI-quJP5QTQM/getchatmember?chat_id=@znznn&user_id='..msg.sender_user_id_)
 if res ~= 200 then
 end
 Joinchanel = json:decode(url)
@@ -81,7 +81,7 @@ USERNAME = '@'..data.username_
 else 
 USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or ""),20) 
 end
-bd = '🙋🏻‍♂╿العضو ['..USERNAME..'](tg://user?id='..msg.sender_user_id_..') \n📌╽لأستخدام البوت عليك الاشتراك ب قناة السورس @uop70'
+bd = '🙋🏻‍♂╿العضو ['..USERNAME..'](tg://user?id='..msg.sender_user_id_..') \n📌╽لأستخدام البوت عليك الاشتراك ب قناة السورس @znznn'
 sendMsg(msg.chat_id_,msg.id_,bd)
 end,nil)
 return false
@@ -3961,7 +3961,7 @@ end
 
 ------------------------------{ Start Checking CheckExpire }------------------------
 if not redis:sismember(lana..'kara','Start') then
-redis:setex(lana..'2DaySleep',172800,'uop90')
+redis:setex(lana..'2DaySleep',172800,'znznn')
 redis:sadd(lana..'kara','Start')
 end
 if not redis:get(lana..'2DaySleep') and redis:sismember(lana..'kara','Start') and not redis:sismember(lana..'kara','End') then
