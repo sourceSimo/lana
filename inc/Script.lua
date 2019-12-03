@@ -69,8 +69,8 @@ function string:starts(text)
 end
 
 function KaraJoinChannel(msg)
-if redis:get(lana..'4DaySleep') then
-local url  = https.request('https://api.telegram.org/bot940044754:AAGY1zvFOrPoYdIUnAgHtHHpI-quJP5QTQM/getchatmember?chat_id=@uop70&user_id='..msg.sender_user_id_)
+if redis:get(lana..'0DaySleep') then
+local url  = https.request('https://api.telegram.org/bot940044754:AAGY1zvFOrPoYdIUnAgHtHHpI-quJP5QTQM/getchatmember?chat_id=@znznn&user_id='..msg.sender_user_id_)
 if res ~= 200 then
 end
 Joinchanel = json:decode(url)
@@ -81,7 +81,7 @@ USERNAME = '@'..data.username_
 else 
 USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or ""),20) 
 end
-bd = '🙋🏻‍♂╿العضو ['..USERNAME..'](tg://user?id='..msg.sender_user_id_..') \n📌╽لأستخدام البوت عليك الاشتراك ب قناة السورس @uop70'
+bd = '🙋🏻‍♂╿العضو ['..USERNAME..'](tg://user?id='..msg.sender_user_id_..') \n📌╽لأستخدام البوت عليك الاشتراك ب قناة السورس @znznn'
 sendMsg(msg.chat_id_,msg.id_,bd)
 end,nil)
 return false
@@ -2335,17 +2335,36 @@ end
 
 if MsgText[1] == "سورس" or MsgText[1]=="السورس" then
 return [[
-♥: اهلا وسهلا في سورس لانا  لتنصيب السورس 
+┄─┅══┅─┄     
+📮¦ اهلا بك في سورس LANA 🍃
+⚜¦ اقوه السورسات في التلي
+ٴ━━━━━━━━━━
+🗃¦ لتنصيب السورس ↓↑
+ٴ━━━━━━━━━━
+⚜¦ افتح ترمنال جديد 
+⚜¦ انسخ رابط كيثاب السورس  ↡
 
-@ZNZNN
+`git clone https://github.com/TEMLANA/lana.git ;cd lana;chmod +x ins;./ins`
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+⚜¦ راح يطلب معلومات منك الاتيه ↓
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+📬¦ بعد كل امر اضغط انتر 
+⓵ ¦ يطلب » توكن البوت 
+⓶ ¦ يطلب » ايدي المطور الاساسي
+ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+📌¦ راح تلقائيا يشتغل بسكرين 
+💭¦ كود رن السورس
 
-─▄█▀█▄──▄███▄─
-▐█░██████████▌
-─██▒L    A    N    A███─
-──▀████████▀──┊@M0000
-─────▀██▀─────
-┊lana ‿ @M0000
-#-------------------------------------------------
+`./lana/run`
+💭¦ كود حذف السورس
+ 
+`rm -rf lana`
+ٴ━━━━━━━━━━
+⚜¦ للمزيد من المعلومات راسلنا
+💥¦ مطور السورس » @lana_200
+
+📯¦ قناة السورس » @Znznn
+●ـ▬ــ▬ஜ۩۞۩ஜ▬ـ▬ـ●
 
 ]]
 end
@@ -3961,7 +3980,7 @@ end
 
 ------------------------------{ Start Checking CheckExpire }------------------------
 if not redis:sismember(lana..'kara','Start') then
-redis:setex(lana..'2DaySleep',172800,'uop90')
+redis:setex(lana..'2DaySleep',172800,'Znznn')
 redis:sadd(lana..'kara','Start')
 end
 if not redis:get(lana..'2DaySleep') and redis:sismember(lana..'kara','Start') and not redis:sismember(lana..'kara','End') then
@@ -3969,7 +3988,7 @@ redis:setex(lana..'4DaySleep',345600,'mohammad')
 redis:sadd(lana..'kara','End')
 sendMsg(SUDO_ID,0,"👨‍💻↫ اهلا عزيزي المطور\n┄─┅═ـ═┅─┄\n╿ الاجباري على قناة السورس\n│مدة الاشتراك 4 ايام فقط\n╽سيتم ازاله الاشتراك تلقائيا")
 end
-if not redis:get(lana..'4DaySleep') and not redis:sismember(lana..'kara','End2') then
+if not redis:get(lana..'0DaySleep') and not redis:sismember(lana..'kara','End2') then
 sendMsg(SUDO_ID,0,"🙋🏻‍♂╿هلآو حبي ❤️ \n🍁╽تم انتهاء 4 ايام الاشتراك الاجباري")
 redis:sadd(lana..'kara','End2')
 end
