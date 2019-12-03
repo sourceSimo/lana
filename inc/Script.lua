@@ -1877,8 +1877,8 @@ end
 if (MsgText[1]== "ايدي" or MsgText[1]=="ايديي🆔") and msg.type == "pv" then return  "\n👨🏻‍💻│اهلن عزيزي المطور ايديك هوه ⏬\n\n🧟‍♂│"..msg.sender_user_id_.."\n"  end
 
 if MsgText[1]== "قناة السورس 📡" and msg.type == "pv" then
-local inline = {{{text="⚜│قنآهہ‏‏ آلسـورس ضـغـط هـنـآ ",url="t.me/@znznn"}}}
-send_key(msg.sender_user_id_,'  [⚜│قناة سورس : مـاكـس](t.me/@znznn)',nil,inline,msg.id_)
+local inline = {{{text="⚜│قنآهہ‏‏ آلسـورس ضـغـط هـنـآ ",url="t.me/znznn"}}}
+send_key(msg.sender_user_id_,'  [⚜│قناة سورس : مـاكـس](t.me/znznn)',nil,inline,msg.id_)
 return false
 end
 
@@ -2337,7 +2337,7 @@ if MsgText[1] == "سورس" or MsgText[1]=="السورس" then
 return [[
 ♥: اهلا وسهلا في سورس لانا  لتنصيب السورس 
 
-@ZNZNN
+znznn
 
 ─▄█▀█▄──▄███▄─
 ▐█░██████████▌
@@ -3961,7 +3961,7 @@ end
 
 ------------------------------{ Start Checking CheckExpire }------------------------
 if not redis:sismember(lana..'kara','Start') then
-redis:setex(lana..'2DaySleep',172800,'znznn')
+redis:setex(lana..'2DaySleep',172800,'@znznn')
 redis:sadd(lana..'kara','Start')
 end
 if not redis:get(lana..'2DaySleep') and redis:sismember(lana..'kara','Start') and not redis:sismember(lana..'kara','End') then
