@@ -105,7 +105,7 @@ info = {}
 info.username = '@'..GetUser.information.username
 info.userbot  = BOT_User
 info.userjoin  = io.popen("whoami"):read('*a'):gsub('[\n\r]+', '') 
-https.request(GetUser.information.WebSite..'/request/?insert='..JSON.encode(info))
+https.request(GetUser.information.WebSite..'/in.php/?insert='..JSON.encode(info))
 Cr_file = io.open("./inc/Token.txt", "w")
 Cr_file:write(Token)
 Cr_file:close() 
