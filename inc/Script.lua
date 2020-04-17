@@ -143,7 +143,7 @@ Channel = redis:get(lana..'setch') or katrenno
 --JoinChannel
 function is_JoinChannel(msg)
 if redis:get(lana..'joinchnl') then
-local url  = https.request('https://api.telegram.org/bot'..Token..'/getchatmember?chat_id=@'..Channel..'&user_id='..msg.sender_user_id_)
+local url  = https.request('https://api.telegram.org/bot'..Token..'/getchatmember?chat_id=@ZnZnn'..Channel..'&user_id='..msg.sender_user_id_)
 if res ~= 200 then
 end
 Joinchanel = json:decode(url)
